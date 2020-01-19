@@ -1,0 +1,33 @@
+{
+  "files.associations": {
+    "xlocale": "cpp",
+    "vector": "cpp",
+    "xstring": "cpp",
+    "chrono": "cpp",
+    "functional": "cpp",
+    "ios": "cpp",
+    "iosfwd": "cpp",
+    "istream": "cpp",
+    "list": "cpp",
+    "memory": "cpp",
+    "ratio": "cpp",
+    "sstream": "cpp",
+    "streambuf": "cpp",
+    "string": "cpp",
+    "xthread": "cpp",
+    "xtime": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "typeinfo": "cpp",
+    "utility": "cpp",
+    "xhash": "cpp",
+    "xiosbase": "cpp",
+    "xlocnum": "cpp",
+    "xmemory": "cpp",
+    "xmemory0": "cpp",
+    "xutility": "cpp"
+  },
+  "rust-analyzer.highlightingOn": true, // 覆盖内建语法高亮
+  "rust-analyzer.lruCapacity": 1000, // 分析器最大缓存深度
+  "rust-analyzer.cargo-watch.enable": true
+}

@@ -1,0 +1,3 @@
+#https://docs.rs/rustfmt-nightly/1.4.11/rustfmt_nightly/struct.Config.html
+reorder_imports = true
+merge_imports = true
