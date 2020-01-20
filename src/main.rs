@@ -16,6 +16,8 @@ fn main() {
         panic!("请输入需要运行的示例,例如:cargo run base_code");
     }
 
+    info!("参数列表:{:?}", args);
+
     match &*args[1] {
         "base_code" => totorial::base_code::main(),
         "instance" => totorial::instance::main(),

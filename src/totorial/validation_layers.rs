@@ -1,6 +1,8 @@
 //!
 //!
 //! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Base_code
+//! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
+//! cargo run --features=debug validation_layers
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -14,17 +16,25 @@ use ash::{
     vk::*,
     Entry, Instance,
 };
-use std::ffi::CString;
+use std::{
+    ffi::{c_void, CStr, CString},
+    os::raw::c_char,
+};
 use winit::{
     event::{Event, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
     window::{Window, WindowBuilder},
 };
 
-/// 
+#[cfg(target_os = "windows")]
+use ash::extensions::khr::Win32Surface;
+
+use ash::extensions::{ext::DebugUtils, khr::Surface};
+
+///
 /// VK_LAYER_KHRONOS_validation 是标准验证的绑定层
-/// 
-const validation_layers: [&'static str; 1] = ["VK_LAYER_KHRONOS_validation"; 1];
+///
+const VALIDATION_LAYERS: [&'static str; 1] = ["VK_LAYER_KHRONOS_validation"; 1];
 
 ///
 /// 最好使用常量而不是硬编码的宽度和高度数字，因为将来我们将多次引用这些值
@@ -42,12 +52,66 @@ struct HelloTriangleApplication {
     ///
     /// vk实例
     ///
-    pub instance: Option<Instance>,
+    pub(crate) instance: Option<Instance>,
 
     ///
     /// 入口
     ///
-    pub entry: Option<Entry>,
+    pub(crate) entry: Option<Entry>,
+
+    ///
+    /// 调试信息
+    ///
+    pub(crate) debug_messenger: Option<DebugUtilsMessengerEXT>,
+
+    ///
+    ///
+    ///
+    pub(crate) debug_utils_loader: Option<DebugUtils>,
+}
+
+unsafe extern "system" fn debug_callback(
+    message_severity: DebugUtilsMessageSeverityFlagsEXT,
+    message_types: DebugUtilsMessageTypeFlagsEXT,
+    p_callback_data: *const DebugUtilsMessengerCallbackDataEXT,
+    _p_user_data: *mut c_void,
+) -> u32 {
+    // 此枚举的值设置方式，可以使用比较操作来检查消息与某些严重性级别相比是否相等或更糟
+    // use std::cmp::Ordering;
+    //
+    // if message_severity.cmp(&DebugUtilsMessageSeverityFlagsEXT::WARNING) == Ordering::Greater {
+    //
+    // }
+
+    match message_severity {
+        DebugUtilsMessageSeverityFlagsEXT::VERBOSE => {
+            info!("debug_callback message_severity VERBOSE")
+        }
+        DebugUtilsMessageSeverityFlagsEXT::WARNING => {
+            info!("debug_callback message_severity WARNING")
+        }
+        DebugUtilsMessageSeverityFlagsEXT::ERROR => info!("debug_callback message_severity ERROR"),
+        DebugUtilsMessageSeverityFlagsEXT::INFO => info!("debug_callback message_severity INFO"),
+        _ => info!("debug_callback message_severity DEFAULT"),
+    };
+
+    match message_types {
+        DebugUtilsMessageTypeFlagsEXT::GENERAL => info!("debug_callback message_types GENERAL"),
+        DebugUtilsMessageTypeFlagsEXT::PERFORMANCE => {
+            info!("debug_callback message_types PERFORMANCE")
+        }
+        DebugUtilsMessageTypeFlagsEXT::VALIDATION => {
+            info!("debug_callback message_types VALIDATION")
+        }
+        _ => info!("debug_callback message_types DEFAULT"),
+    };
+
+    info!(
+        "debug_callback : {:?}",
+        CStr::from_ptr((*p_callback_data).p_message)
+    );
+
+    FALSE
 }
 
 impl HelloTriangleApplication {
@@ -77,7 +141,6 @@ impl HelloTriangleApplication {
         let window = self.init_window(&events);
         self.init_vulkan();
         self.main_loop(events);
-        self.clean_up();
 
         // 为了在出现错误或窗口关闭之前保持应用程序运行，window必须返回回去,否则出栈的时候windows销毁
         // In order to keep the application running until an error occurs or the window is closed, the window must be returned back, otherwise the windows will be destroyed when it is out of the stack
@@ -90,6 +153,9 @@ impl HelloTriangleApplication {
     ///
     pub(crate) fn init_vulkan(&mut self) {
         self.instance();
+        if cfg!(feature = "debug") {
+            self.setup_debug_messenger();
+        }
     }
 
     ///
@@ -114,25 +180,55 @@ impl HelloTriangleApplication {
                 Event::RedrawRequested(_) => {}
                 _ => (),
             }
-        })
+        });
     }
 
     ///
     /// 创建vulkan实例
     ///
     pub(crate) fn instance(&mut self) {
+        let entry = Entry::new().unwrap();
+        self.entry = Some(entry);
+
+        // 首先校验我们需要启用的层当前vulkan扩展是否支持
+        // First check if the layer we need to enable currently vulkan extension supports
+        //
+        if cfg!(feature = "debug") && !self.check_validation_layer_support() {
+            panic!("validation layers requested, but not available!");
+        };
+
         // Creating an instance
         let mut app_info = ApplicationInfo::builder()
             .application_name(CString::new("Hello Triangle").unwrap().as_c_str())
             .engine_name(CString::new("No Engine").unwrap().as_c_str())
             .build();
 
-        let create_info = InstanceCreateInfo::builder()
+        let extensions = self.get_required_extensions();
+        let mut create_info = InstanceCreateInfo::builder()
             .application_info(&app_info)
+            .enabled_extension_names(&extensions)
             .build();
 
-        let entry = Entry::new().unwrap();
-        match entry.try_enumerate_instance_version().ok() {
+        let cstr_argv: Vec<_> = VALIDATION_LAYERS
+            .iter()
+            .map(|arg| CString::new(*arg).unwrap())
+            .collect();
+        let p_argv: Vec<_> = cstr_argv.iter().map(|arg| arg.as_ptr()).collect();
+        if cfg!(feature = "debug") {
+            let debug_utils_create_info = Self::populate_debug_messenger_create_info();
+            create_info.enabled_layer_count = p_argv.len() as u32;
+            create_info.pp_enabled_layer_names = p_argv.as_ptr();
+            create_info.p_next = &debug_utils_create_info as *const DebugUtilsMessengerCreateInfoEXT
+                as *const c_void;
+        };
+
+        match self
+            .entry
+            .as_ref()
+            .unwrap()
+            .try_enumerate_instance_version()
+            .ok()
+        {
             // Vulkan 1.1+
             Some(version) => {
                 let major = ash::vk_version_major!(version.unwrap());
@@ -180,13 +276,53 @@ impl HelloTriangleApplication {
         // pointer to custom allocator callback
         // return the created object
         let instance = unsafe {
-            entry
+            self.entry
+                .as_ref()
+                .unwrap()
                 .create_instance(&create_info, None)
                 .expect("create_instance error")
         };
 
         self.instance = Some(instance);
-        self.entry = Some(entry);
+    }
+
+    ///
+    ///
+    ///
+    pub(crate) fn setup_debug_messenger(&mut self) {
+        let debug_utils_create_info = Self::populate_debug_messenger_create_info();
+
+        let debug_utils_loader: DebugUtils = DebugUtils::new(
+            self.entry.as_ref().unwrap(),
+            self.instance.as_ref().unwrap(),
+        );
+
+        // https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
+        self.debug_messenger = unsafe {
+            Some(
+                debug_utils_loader
+                    .create_debug_utils_messenger(&debug_utils_create_info, None)
+                    .expect("failed to set up debug messenger!"),
+            )
+        };
+
+        self.debug_utils_loader = Some(debug_utils_loader);
+    }
+
+    pub(crate) fn populate_debug_messenger_create_info() -> DebugUtilsMessengerCreateInfoEXT {
+        DebugUtilsMessengerCreateInfoEXT::builder()
+            .message_severity(
+                DebugUtilsMessageSeverityFlagsEXT::VERBOSE
+                    | DebugUtilsMessageSeverityFlagsEXT::WARNING
+                    | DebugUtilsMessageSeverityFlagsEXT::ERROR,
+            )
+            .message_type(
+                DebugUtilsMessageTypeFlagsEXT::GENERAL
+                    | DebugUtilsMessageTypeFlagsEXT::VALIDATION
+                    | DebugUtilsMessageTypeFlagsEXT::PERFORMANCE,
+            )
+            .pfn_user_callback(Some(debug_callback))
+            .build()
     }
 
     ///
@@ -195,8 +331,95 @@ impl HelloTriangleApplication {
     ///
     pub(crate) fn clean_up(&mut self) {
         unsafe {
+            info!("clean_up");
+
+            // 如果不销毁debug_messenger而直接销毁instance
+            // 则会发出如下警告:
+            // debug_callback : "OBJ ERROR : For VkInstance 0x1db513db8a0[], VkDebugUtilsMessengerEXT 0x2aefa40000000001[] has not been destroyed. The Vulkan spec states: All child objects created using instance must have been destroyed prior to destroying instance (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkDestroyInstance-instance-00629)"
+            if cfg!(feature = "debug") {
+                self.debug_utils_loader
+                    .as_ref()
+                    .unwrap()
+                    .destroy_debug_utils_messenger(self.debug_messenger.unwrap(), None);
+            }
+
             self.instance.as_ref().unwrap().destroy_instance(None);
         }
+    }
+
+    ///
+    /// 请求扩展
+    ///
+    /// glfwGetRequiredInstanceExtensions
+    ///
+    ///
+    pub(crate) fn get_required_extensions(&mut self) -> Vec<*const i8> {
+        let mut v = Vec::new();
+        if cfg!(target_os = "windows") {
+            v.push(Surface::name().as_ptr());
+            v.push(Win32Surface::name().as_ptr());
+            v.push(DebugUtils::name().as_ptr());
+        };
+
+        if cfg!(target_os = "macos") {
+            todo!();
+        };
+
+        if cfg!(target_os = "android") {
+            todo!();
+        }
+
+        v
+    }
+
+    ///
+    /// 校验需要启用的层当前vulkan实力层是否支持
+    /// Verify that the layer that needs to be enabled currently supports the vulkan strength layer
+    ///
+    pub(crate) fn check_validation_layer_support(&mut self) -> bool {
+        // 获取总的验证Layer信息
+        let layer_properties: Vec<LayerProperties> = self
+            .entry
+            .as_ref()
+            .unwrap()
+            .enumerate_instance_layer_properties()
+            .expect("Failed to enumerate instance layers properties");
+
+        info!("layer_properties{:?}", layer_properties);
+
+        for layer_name in VALIDATION_LAYERS.iter() {
+            let mut layer_found = false;
+
+            for layer_propertie in layer_properties.iter() {
+                if Self::char2str(&layer_propertie.layer_name) == layer_name.to_string() {
+                    layer_found = true;
+                }
+            }
+
+            if !layer_found {
+                return false;
+            }
+        }
+
+        true
+    }
+
+    pub(crate) fn char2str(char: &[c_char]) -> String {
+        let raw_string = unsafe {
+            let pointer = char.as_ptr();
+            CStr::from_ptr(pointer)
+        };
+
+        raw_string
+            .to_str()
+            .expect("Failed to convert vulkan raw string.")
+            .to_string()
+    }
+}
+
+impl Drop for HelloTriangleApplication {
+    fn drop(&mut self) {
+        self.clean_up();
     }
 }
 
