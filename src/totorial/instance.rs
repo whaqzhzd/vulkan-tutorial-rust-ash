@@ -1,6 +1,6 @@
 //!
 //!
-//! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Base_code
+//! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Instance
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!

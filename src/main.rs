@@ -1,5 +1,6 @@
 mod totorial;
 mod util;
+
 extern crate ash;
 extern crate winit;
 
@@ -19,9 +20,10 @@ fn main() {
     info!("参数列表:{:?}", args);
 
     match &*args[1] {
-        "base_code" => totorial::base_code::main(),
-        "instance" => totorial::instance::main(),
-        "validation_layers" => totorial::validation_layers::main(),
+        "base_code" | "0" => totorial::base_code::main(),
+        "instance" | "1" => totorial::instance::main(),
+        "validation_layers" | "2" => totorial::validation_layers::main(),
+        "physical_device_selection" | "3" => totorial::physical_device_selection::main(),
         _ => {
             todo!();
         }

@@ -1,8 +1,8 @@
 //!
 //!
-//! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Validation_layers
+//! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Physical_devices_and_queue_families
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
-//! cargo run --features=debug validation_layers
+//! cargo run --features=debug physical_device_selection
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -48,6 +48,17 @@ const WIDTH: u32 = 800;
 const HEIGHT: u32 = 600;
 
 #[derive(Default)]
+struct QueueFamilyIndices {
+    pub graphics_famile: Option<u32>,
+}
+
+impl QueueFamilyIndices {
+    pub fn is_complete(&self) -> bool {
+        self.graphics_famile.is_some()
+    }
+}
+
+#[derive(Default)]
 struct HelloTriangleApplication {
     ///
     /// vk实例
@@ -65,9 +76,19 @@ struct HelloTriangleApplication {
     pub(crate) debug_messenger: Option<DebugUtilsMessengerEXT>,
 
     ///
-    ///
+    /// 调试
     ///
     pub(crate) debug_utils_loader: Option<DebugUtils>,
+
+    ///
+    /// 本机可使用的物理设备
+    ///
+    pub(crate) physical_devices: Vec<PhysicalDevice>,
+
+    ///
+    /// 选中的可用的物理设备
+    ///
+    pub(crate) physical_device: Option<PhysicalDevice>,
 }
 
 unsafe extern "system" fn debug_callback(
@@ -149,9 +170,8 @@ impl HelloTriangleApplication {
     ///
     pub(crate) fn init_vulkan(&mut self) {
         self.instance();
-        if cfg!(feature = "debug") {
-            self.setup_debug_messenger();
-        }
+        self.setup_debug_messenger();
+        self.pick_physical_device();
     }
 
     ///
@@ -318,6 +338,89 @@ impl HelloTriangleApplication {
         };
 
         self.debug_utils_loader = Some(debug_utils_loader);
+    }
+
+    ///
+    /// 检查可用的物理设备
+    ///
+    pub(crate) fn pick_physical_device(&mut self) {
+        let physical_devices: Vec<PhysicalDevice> = unsafe {
+            self.instance
+                .as_ref()
+                .unwrap()
+                .enumerate_physical_devices()
+                .expect("enumerate_physical_devices error")
+        };
+
+        if physical_devices.len() <= 0 {
+            panic!("failed to find GPUs with Vulkan support!");
+        }
+
+        for physical_device in physical_devices.iter() {
+            if self.is_device_suitable(physical_device) {
+                self.physical_device = Some(*physical_device);
+            }
+        }
+        self.physical_devices = physical_devices;
+
+        if let None::<PhysicalDevice> = self.physical_device {
+            panic!("failed to find a suitable GPU!");
+        }
+    }
+
+    pub(crate) fn is_device_suitable(&mut self, device: &PhysicalDevice) -> bool {
+        let indices = self.find_queue_families(device);
+
+        return indices.is_complete();
+    }
+
+    pub(crate) fn find_queue_families(&mut self, device: &PhysicalDevice) -> QueueFamilyIndices {
+        let mut indices = QueueFamilyIndices::default();
+
+        let physical_device_properties: PhysicalDeviceProperties = unsafe {
+            self.instance
+                .as_ref()
+                .unwrap()
+                .get_physical_device_properties(*device)
+        };
+
+        info!(
+            "物理设备名称: {:?}",
+            Self::char2str(&physical_device_properties.device_name)
+        );
+        info!("物理设备类型: {:?}", physical_device_properties.device_type);
+
+        info!("物理设备属性：{:#?}", physical_device_properties);
+
+        let physical_device_features: PhysicalDeviceFeatures = unsafe {
+            self.instance
+                .as_ref()
+                .unwrap()
+                .get_physical_device_features(*device)
+        };
+        info!(
+            "物理设备是否支持几何着色器: {:?}",
+            physical_device_features.geometry_shader
+        );
+
+        let queue_families: Vec<QueueFamilyProperties> = unsafe {
+            self.instance
+                .as_ref()
+                .unwrap()
+                .get_physical_device_queue_family_properties(*device)
+        };
+
+        for (i, queue_familie) in queue_families.iter().enumerate() {
+            if queue_familie.queue_flags.contains(QueueFlags::GRAPHICS) {
+                indices.graphics_famile = Some(i as u32);
+            }
+
+            if indices.is_complete() {
+                break;
+            }
+        }
+
+        indices
     }
 
     pub(crate) fn populate_debug_messenger_create_info() -> DebugUtilsMessengerCreateInfoEXT {
