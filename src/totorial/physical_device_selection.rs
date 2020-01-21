@@ -390,6 +390,7 @@ impl HelloTriangleApplication {
         );
         info!("物理设备类型: {:?}", physical_device_properties.device_type);
 
+        //https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceLimits.html
         info!("物理设备属性：{:#?}", physical_device_properties);
 
         let physical_device_features: PhysicalDeviceFeatures = unsafe {
