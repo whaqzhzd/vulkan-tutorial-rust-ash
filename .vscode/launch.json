@@ -24,7 +24,7 @@
       "type": "cppvsdbg",
       "request": "launch",
       "program": "${workspaceFolder}/target/debug/vulkan_tutorial_rust.exe",
-      "args": ["physical_device_selection","--features=debug"],
+      "args": ["window_surface", "--features=debug"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],

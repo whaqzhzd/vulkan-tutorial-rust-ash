@@ -34,6 +34,11 @@ use ash::extensions::{ext::DebugUtils, khr::Surface};
 ///
 /// VK_LAYER_KHRONOS_validation 是标准验证的绑定层
 ///
+/// 请注意这个修改
+/// 如果你的vk版本过低
+/// 使用VK_LAYER_KHRONOS_validation将会报错
+/// @ https://vulkan.lunarg.com/doc/view/1.1.108.0/mac/validation_layers.html
+///
 const VALIDATION_LAYERS: [&'static str; 1] = ["VK_LAYER_KHRONOS_validation"; 1];
 
 ///
@@ -225,7 +230,7 @@ impl HelloTriangleApplication {
         // First check if the layer we need to enable currently vulkan extension supports
         //
         if cfg!(feature = "debug") && !self.check_validation_layer_support() {
-            panic!("validation layers requested, but not available!");
+            panic!("validation layers requested, but not available! @see https://vulkan.lunarg.com/doc/view/1.1.108.0/mac/validation_layers.html");
         };
 
         // Creating an instance
@@ -452,13 +457,17 @@ impl HelloTriangleApplication {
             // 则会发出如下警告:
             // debug_callback : "OBJ ERROR : For VkInstance 0x1db513db8a0[], VkDebugUtilsMessengerEXT 0x2aefa40000000001[] has not been destroyed. The Vulkan spec states: All child objects created using instance must have been destroyed prior to destroying instance (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkDestroyInstance-instance-00629)"
             if cfg!(feature = "debug") {
-                self.debug_utils_loader
-                    .as_ref()
-                    .unwrap()
-                    .destroy_debug_utils_messenger(self.debug_messenger.unwrap(), None);
+                if let Some(debug_messenger) = self.debug_messenger {
+                    self.debug_utils_loader
+                        .as_ref()
+                        .unwrap()
+                        .destroy_debug_utils_messenger(debug_messenger, None);
+                }
             }
 
-            self.instance.as_ref().unwrap().destroy_instance(None);
+            if let Some(instance) = self.instance.as_ref() {
+                instance.destroy_instance(None);
+            }
         }
     }
 
