@@ -27,6 +27,7 @@ fn main() {
         "physical_device_selection" | "3" => totorial::physical_device_selection::main(),
         "logical_device"            | "4" => totorial::logical_device::main(),
         "window_surface"            | "5" => totorial::window_surface::main(),
+        "swap_chain"                | "6" => totorial::swap_chain::main(),
         _ => {
             todo!();
         }

@@ -2,7 +2,7 @@
 //!
 //! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Physical_devices_and_queue_families
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
-//! cargo run --features=debug window_surface
+//! cargo run --features=debug swap_chain
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -12,7 +12,10 @@
 //!
 
 use ash::{
-    extensions::{ext::DebugUtils, khr::Surface},
+    extensions::{
+        ext::DebugUtils,
+        khr::{Surface, Swapchain},
+    },
     version::{DeviceV1_0, EntryV1_0, InstanceV1_0},
     vk::*,
     Entry, Instance,
@@ -39,6 +42,12 @@ use ash::extensions::khr::Win32Surface;
 /// @ https://vulkan.lunarg.com/doc/view/1.1.108.0/mac/validation_layers.html
 ///
 const VALIDATION_LAYERS: [&'static str; 1] = ["VK_LAYER_KHRONOS_validation"; 1];
+
+///
+/// 由于图像表示与窗口系统以及与窗口相关的表面紧密相关，因此它实际上不是Vulkan核心的一部分。
+/// 启用扩展VK_KHR_swapchain
+///
+const DEVICE_EXTENSIONES: [&'static str; 1] = ["VK_KHR_swapchain"; 1];
 
 ///
 /// 最好使用常量而不是硬编码的宽度和高度数字，因为将来我们将多次引用这些值
@@ -71,6 +80,27 @@ impl QueueFamilyIndices {
     pub fn is_complete(&self) -> bool {
         self.graphics_family.is_some() && self.present_family.is_some()
     }
+}
+
+///
+/// 查询到的交换链支持的详细信息
+///
+#[derive(Default)]
+struct SwapChainSupportDetails {
+    ///
+    /// 基本表面功能（交换链中图像的最小/最大数量，图像的最小/最大宽度和高度）
+    ///
+    pub capabilities: SurfaceCapabilitiesKHR,
+
+    ///
+    /// 表面格式（像素格式，色彩空间）
+    ///
+    pub formats: Vec<SurfaceFormatKHR>,
+
+    ///
+    /// 可用的显示模式
+    ///
+    pub present_modes: Vec<PresentModeKHR>,
 }
 
 #[derive(Default)]
@@ -134,6 +164,31 @@ struct HelloTriangleApplication {
     /// 由于Vulkan是与平台无关的API，因此它无法直接直接与窗口系统交互。为了在Vulkan和窗口系统之间建立连接以将结果呈现给屏幕，我们需要使用WSI（窗口系统集成）扩展
     ///
     pub(crate) surface: Option<SurfaceKHR>,
+
+    ///
+    /// 交换链加载器
+    ///
+    pub(crate) swap_chain_loader: Option<Swapchain>,
+
+    ///
+    /// 交换链对象
+    ///
+    pub(crate) swap_chain: SwapchainKHR,
+
+    ///
+    /// 存储句柄
+    ///
+    pub(crate) swap_chain_images: Vec<Image>,
+
+    ///
+    /// 交换链格式化类型
+    ///
+    pub(crate) swap_chain_image_format: Format,
+
+    ///
+    /// 交换链大小
+    ///
+    pub(crate) swap_chain_extent: Extent2D,
 }
 
 unsafe extern "system" fn debug_callback(
@@ -218,6 +273,7 @@ impl HelloTriangleApplication {
         self.create_surface();
         self.pick_physical_device();
         self.create_logical_device();
+        self.create_swap_chain();
     }
 
     ///
@@ -291,8 +347,9 @@ impl HelloTriangleApplication {
             .map(|arg| CString::new(*arg).unwrap())
             .collect();
         let p_argv: Vec<_> = cstr_argv.iter().map(|arg| arg.as_ptr()).collect();
+
+        let debug_utils_create_info = Self::populate_debug_messenger_create_info();
         if cfg!(feature = "debug") {
-            let debug_utils_create_info = Self::populate_debug_messenger_create_info();
             create_info.enabled_layer_count = p_argv.len() as u32;
             create_info.pp_enabled_layer_names = p_argv.as_ptr();
             create_info.p_next = &debug_utils_create_info as *const DebugUtilsMessengerCreateInfoEXT
@@ -501,12 +558,24 @@ impl HelloTriangleApplication {
 
         //指定使用的设备功能
         let device_features = PhysicalDeviceFeatures::default();
+
+        //现在需要启用交换链
+        let cstr_exts: Vec<_> = DEVICE_EXTENSIONES
+            .iter()
+            .map(|arg| CString::new(*arg).unwrap())
+            .collect();
+        let csstr_exts: Vec<_> = cstr_exts.iter().map(|arg| arg.as_ptr()).collect();
+
         //创建逻辑设备
         let mut device_create_info = DeviceCreateInfo::builder()
             .queue_create_infos(&queue_create_infos)
             .enabled_features(&device_features)
+            .enabled_extension_names(&csstr_exts)
             .build();
-        device_create_info.enabled_extension_count = 0;
+
+        //现在启用的扩展数量由enabled_extension_names方法设置
+        //device_create_info.enabled_extension_count = 0;
+
         // 兼容实现部分暂不实现
         // if (enableValidationLayers) {
         //     createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
@@ -545,10 +614,249 @@ impl HelloTriangleApplication {
         };
     }
 
+    ///
+    /// 创建交换链
+    ///
+    pub(crate) fn create_swap_chain(&mut self) {
+        let swap_chain_support =
+            self.query_swap_chain_support(self.physical_device.as_ref().unwrap());
+
+        let surface_format = self.choose_swap_surface_format(swap_chain_support.formats);
+        let present_mode = self.choose_swap_present_mode(swap_chain_support.present_modes);
+        let extent = self.choose_swap_extent(&swap_chain_support.capabilities);
+
+        //除了这些属性外，我们还必须确定交换链中要包含多少个图像。该实现指定其运行所需的最小数量：
+        //仅坚持最低限度意味着我们有时可能需要等待驱动程序完成内部操作，然后才能获取要渲染的一张图像。因此，建议您至少请求至少一张图片
+        let mut image_count = swap_chain_support.capabilities.min_image_count + 1;
+        //还应确保不超过最大图像数
+
+        if swap_chain_support.capabilities.max_image_count > 0
+            && image_count > swap_chain_support.capabilities.max_image_count
+        {
+            image_count = swap_chain_support.capabilities.max_image_count;
+        }
+
+        let mut create_info = SwapchainCreateInfoKHR::builder()
+            .surface(self.surface.unwrap())
+            .min_image_count(image_count)
+            .image_format(surface_format.format)
+            .image_color_space(surface_format.color_space)
+            //Try removing the createInfo.imageExtent = extent; line with validation layers enabled. You'll see that one of the validation layers immediately catches the mistake and a helpful message is printed:
+            .image_extent(extent)
+            //imageArrayLayers指定层的每个图像包括的量
+            //除非您正在开发立体3D应用程序，否则始终如此为1
+            .image_array_layers(1)
+            .image_usage(ImageUsageFlags::COLOR_ATTACHMENT)
+            .build();
+
+        let physical_device = self.physical_device.as_ref().unwrap();
+        let indices = self.find_queue_families(physical_device);
+        let queue_familie_indices = vec![
+            indices.graphics_family.unwrap(),
+            indices.present_family.unwrap(),
+        ];
+
+        if indices.graphics_family != indices.present_family {
+            //VK_SHARING_MODE_CONCURRENT：图像可以在多个队列族中使用，而无需明确的所有权转移。
+            create_info.image_sharing_mode = SharingMode::CONCURRENT;
+            create_info.queue_family_index_count = 2;
+            create_info.p_queue_family_indices = queue_familie_indices.as_ptr();
+        } else {
+            //如果队列族不同，那么在本教程中我们将使用并发模式以避免执行所有权
+            //VK_SHARING_MODE_EXCLUSIVE：图像一次由一个队列族拥有，并且必须在其他队列族中使用图像之前显式转移所有权。此选项提供最佳性能。
+            create_info.image_sharing_mode = SharingMode::EXCLUSIVE;
+            create_info.queue_family_index_count = 0;
+            create_info.p_queue_family_indices = std::ptr::null();
+        }
+        //我们可以指定某一变换应适用于在交换链图像
+        //要指定您不希望进行任何转换，只需指定当前转换即可。
+        create_info.pre_transform = swap_chain_support.capabilities.current_transform;
+        //指定是否应将Alpha通道用于与窗口系统中的其他窗口混合
+        create_info.composite_alpha = CompositeAlphaFlagsKHR::OPAQUE;
+        create_info.present_mode = present_mode;
+        // 设置为true，意味着我们不在乎被遮盖的像素的颜色
+        // 除非您真的需要能够读回这些像素并获得可预测的结果，否则通过启用裁剪将获得最佳性能。
+        create_info.clipped = TRUE;
+        //剩下最后一个场oldSwapChain。使用Vulkan时，您的交换链可能在应用程序运行时无效或未优化，例如，因为调整了窗口大小。在这种情况下，实际上需要从头开始重新创建交换链，并且必须在该字段中指定对旧交换链的引用。这是一个复杂的主题，我们将在以后的章节中了解更多。现在，我们假设我们只会创建一个交换链。
+        create_info.old_swapchain = SwapchainKHR::null();
+
+        let swapchain_loader = Swapchain::new(
+            self.instance.as_ref().unwrap(),
+            self.device.as_ref().unwrap(),
+        );
+
+        //创建交换链
+        self.swap_chain = unsafe {
+            swapchain_loader
+                .create_swapchain(&create_info, None)
+                .expect("create_swapchain error")
+        };
+
+        self.swap_chain_images = unsafe {
+            swapchain_loader
+                .get_swapchain_images(self.swap_chain)
+                .expect("Failed to get Swapchain Images.")
+        };
+
+        self.swap_chain_image_format = surface_format.format;
+        self.swap_chain_extent = extent;
+        self.swap_chain_loader = Some(swapchain_loader);
+    }
+
+    ///
+    /// 校验交换链是否支持
+    ///
+    pub(crate) fn query_swap_chain_support(
+        &self,
+        device: &PhysicalDevice,
+    ) -> SwapChainSupportDetails {
+        let surface_capabilities = unsafe {
+            self.surface_loader
+                .as_ref()
+                .unwrap()
+                .get_physical_device_surface_capabilities(*device, self.surface.unwrap())
+                .expect("get_physical_device_surface_capabilities error")
+        };
+
+        let formats = unsafe {
+            self.surface_loader
+                .as_ref()
+                .unwrap()
+                .get_physical_device_surface_formats(*device, self.surface.unwrap())
+                .expect("get_physical_device_surface_formats error")
+        };
+
+        let present_modes = unsafe {
+            self.surface_loader
+                .as_ref()
+                .unwrap()
+                .get_physical_device_surface_present_modes(*device, self.surface.unwrap())
+                .expect("get_physical_device_surface_present_modes error")
+        };
+
+        let details = SwapChainSupportDetails {
+            capabilities: surface_capabilities,
+            formats,
+            present_modes,
+        };
+
+        details
+    }
+
     pub(crate) fn is_device_suitable(&mut self, device: &PhysicalDevice) -> bool {
         let indices = self.find_queue_families(device);
 
-        return indices.is_complete();
+        let extensions_supported = self.check_device_extension_support(device);
+
+        let mut swap_chain_adequate = false;
+        if extensions_supported {
+            let swap_chain_support = self.query_swap_chain_support(device);
+            swap_chain_adequate = !swap_chain_support.formats.is_empty()
+                && !swap_chain_support.present_modes.is_empty();
+        }
+
+        return indices.is_complete() && extensions_supported && swap_chain_adequate;
+    }
+
+    ///
+    /// format成员指定颜色通道和类型
+    /// SRGB_NONLINEAR_KHR标志指示是否支持SRGB颜色空间
+    ///
+    /// 对于色彩空间，我们将使用SRGB（如果可用）
+    /// @see https://stackoverflow.com/questions/12524623/what-are-the-practical-differences-when-working-with-colors-in-a-linear-vs-a-no
+    ///
+    pub(crate) fn choose_swap_surface_format(
+        &self,
+        available_formats: Vec<SurfaceFormatKHR>,
+    ) -> SurfaceFormatKHR {
+        for (_i, format) in available_formats.iter().enumerate() {
+            if format.format == Format::B8G8R8A8_UNORM
+                && format.color_space == ColorSpaceKHR::SRGB_NONLINEAR
+            {
+                return *format;
+            }
+        }
+
+        //那么我们可以根据它们的"好"的程度开始对可用格式进行排名，但是在大多数情况下，只需要使用指定的第一种格式就可以了。
+        return available_formats[0];
+    }
+
+    ///
+    /// 垂直空白间隙 vertical blank interval(VBI)，类比显示器显示一张画面的方式:由画面的左上角开始以交错的方式最后扫描至画面的右下角.，这样就完成了一张画面的显示,，然后电子束移回去左上角， 以进行下一张画面的显示。
+    ///
+    /// 显示模式可以说是交换链最重要的设置，因为它代表了在屏幕上显示图像的实际条件
+    /// Vulkan有四种可能的模式：
+    ///
+    /// VK_PRESENT_MODE_IMMEDIATE_KHR：您的应用程序提交的图像会立即传输到屏幕上，这可能会导致撕裂。
+    /// VK_PRESENT_MODE_FIFO_KHR：交换链是一个队列，当刷新显示时，显示器从队列的前面获取图像，并且程序将渲染的图像插入队列的后面。如果队列已满，则程序必须等待。这与现代游戏中的垂直同步最为相似。刷新显示的那一刻被称为“垂直空白间隙”。
+    /// VK_PRESENT_MODE_FIFO_RELAXED_KHR：仅当应用程序延迟并且队列在最后一个垂直空白间隙处为空时，此模式才与前一个模式不同。当图像最终到达时，将立即传输图像，而不是等待下一个垂直空白间隙。这可能会导致可见的撕裂。
+    /// VK_PRESENT_MODE_MAILBOX_KHR：这是第二种模式的另一种形式。当队列已满时，不会阻塞应用程序，而是将已经排队的图像替换为更新的图像。此模式可用于实现三重缓冲，与使用双缓冲的标准垂直同步相比，它可以避免撕裂，并显着减少了延迟问题。
+    ///
+    ///
+    pub(crate) fn choose_swap_present_mode(
+        &self,
+        available_present_modes: Vec<PresentModeKHR>,
+    ) -> PresentModeKHR {
+        for (_i, present_mode) in available_present_modes.iter().enumerate() {
+            if present_mode.as_raw() == PresentModeKHR::MAILBOX.as_raw() {
+                return *present_mode;
+            }
+        }
+
+        return PresentModeKHR::FIFO;
+    }
+
+    ///
+    /// 交换范围是交换链图像的分辨率，它几乎始终等于我们要绘制到的窗口的分辨率
+    ///
+    pub(crate) fn choose_swap_extent(&self, capabilities: &SurfaceCapabilitiesKHR) -> Extent2D {
+        if capabilities.current_extent.width != u32::max_value() {
+            return capabilities.current_extent;
+        } else {
+            use std::cmp::{max, min};
+
+            let mut actual_extent = Extent2D::builder().width(WIDTH).height(HEIGHT).build();
+            actual_extent.width = max(
+                capabilities.min_image_extent.width,
+                min(capabilities.min_image_extent.width, actual_extent.width),
+            );
+
+            actual_extent.height = max(
+                capabilities.min_image_extent.height,
+                min(capabilities.min_image_extent.height, actual_extent.height),
+            );
+
+            return actual_extent;
+        };
+    }
+
+    ///
+    /// 校验扩展支持情况
+    ///
+    pub(crate) fn check_device_extension_support(&self, device: &PhysicalDevice) -> bool {
+        let device_extension_properties: Vec<ExtensionProperties> = unsafe {
+            self.instance
+                .as_ref()
+                .unwrap()
+                .enumerate_device_extension_properties(*device)
+                .expect("failed to get device extension properties.")
+        };
+
+        let mut extensions = DEVICE_EXTENSIONES.clone().to_vec();
+        for (_i, dep) in device_extension_properties.iter().enumerate() {
+            // nightly
+            // todo https://doc.rust-lang.org/std/vec/struct.Vec.html#method.remove_item
+
+            let index = extensions
+                .iter()
+                .position(|x| *x == Self::char2str(&dep.extension_name));
+
+            if let Some(index) = index {
+                extensions.remove(index);
+            }
+        }
+
+        extensions.is_empty()
     }
 
     pub(crate) fn find_queue_families(&self, device: &PhysicalDevice) -> QueueFamilyIndices {
@@ -651,6 +959,11 @@ impl HelloTriangleApplication {
             }
 
             if let Some(instance) = self.instance.as_ref() {
+                self.swap_chain_loader
+                    .as_ref()
+                    .unwrap()
+                    .destroy_swapchain(self.swap_chain, None);
+
                 if let Some(surface_khr) = self.surface {
                     self.surface_loader
                         .as_ref()
@@ -756,6 +1069,9 @@ impl Drop for HelloTriangleApplication {
 /// 通过跟踪来自调用的线程来检查线程安全
 /// 将每个调用及其参数记录到标准输出
 /// 跟踪Vulkan需要分析并重播
+///
+/// 交换链的一般目的是使图像的显示与屏幕的刷新率同步。
+/// but the general purpose of the swap chain is to synchronize the presentation of images with the refresh rate of the screen.
 ///
 pub fn main() {
     let events = EventLoop::new();
