@@ -95,11 +95,25 @@ impl HelloTriangleApplication {
     /// In order to keep the application running until an error occurs or the window closes, we need to add an event loop to the function
     ///
     pub(crate) fn main_loop(&mut self, event_loop: EventLoop<()>) {
+        let ptr = self as *mut _;
         event_loop.run(move |event, _, control_flow| {
             *control_flow = ControlFlow::Wait;
 
             match event {
-                Event::LoopDestroyed => return,
+                Event::LoopDestroyed => unsafe {
+                    // winit的实现会直接调用std::process::exit(0);
+                    // 这不会调用各种析构函数
+                    // 这里我们自己主动调用
+                    // pub fn run<F>(mut self, event_handler: F) -> !
+                    // where
+                    //     F: 'static + FnMut(Event<'_, T>, &RootELW<T>, &mut ControlFlow),
+                    // {
+                    //     self.run_return(event_handler);
+                    //     ::std::process::exit(0);
+                    // }
+                    std::ptr::drop_in_place(ptr);
+                    return;
+                },
                 Event::WindowEvent { event, .. } => match event {
                     WindowEvent::CloseRequested => {
                         *control_flow = ControlFlow::Exit;
@@ -109,7 +123,7 @@ impl HelloTriangleApplication {
                 Event::RedrawRequested(_) => {}
                 _ => (),
             }
-        })
+        });
     }
 
     ///

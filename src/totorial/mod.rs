@@ -1,4 +1,5 @@
 pub mod base_code;
+pub mod image_views;
 pub mod instance;
 pub mod logical_device;
 pub mod physical_device_selection;

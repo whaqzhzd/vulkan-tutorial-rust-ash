@@ -28,6 +28,7 @@ fn main() {
         "logical_device"            | "4" => totorial::logical_device::main(),
         "window_surface"            | "5" => totorial::window_surface::main(),
         "swap_chain"                | "6" => totorial::swap_chain::main(),
+        "image_views"               | "7" => totorial::image_views::main(),
         _ => {
             todo!();
         }
