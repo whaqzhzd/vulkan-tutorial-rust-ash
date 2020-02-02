@@ -29,6 +29,8 @@ fn main() {
         "window_surface"            | "5" => totorial::window_surface::main(),
         "swap_chain"                | "6" => totorial::swap_chain::main(),
         "image_views"               | "7" => totorial::image_views::main(),
+        "graphics_pipeline"         | "8" => totorial::graphics_pipeline::main(),
+        "shader_modules"            | "9" => totorial::shader_modules::main(),
         _ => {
             todo!();
         }

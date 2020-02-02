@@ -1,8 +1,10 @@
 pub mod base_code;
+pub mod graphics_pipeline;
 pub mod image_views;
 pub mod instance;
 pub mod logical_device;
 pub mod physical_device_selection;
+pub mod shader_modules;
 pub mod swap_chain;
 pub mod validation_layers;
 pub mod window_surface;
