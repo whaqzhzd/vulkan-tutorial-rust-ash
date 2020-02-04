@@ -21,16 +21,17 @@ fn main() {
 
     #[rustfmt::skip]
     match &*args[1] {
-        "base_code"                 | "0" => totorial::base_code::main(),
-        "instance"                  | "1" => totorial::instance::main(),
-        "validation_layers"         | "2" => totorial::validation_layers::main(),
-        "physical_device_selection" | "3" => totorial::physical_device_selection::main(),
-        "logical_device"            | "4" => totorial::logical_device::main(),
-        "window_surface"            | "5" => totorial::window_surface::main(),
-        "swap_chain"                | "6" => totorial::swap_chain::main(),
-        "image_views"               | "7" => totorial::image_views::main(),
-        "graphics_pipeline"         | "8" => totorial::graphics_pipeline::main(),
-        "shader_modules"            | "9" => totorial::shader_modules::main(),
+        "base_code"                 | "0"  => totorial::base_code::main(),
+        "instance"                  | "1"  => totorial::instance::main(),
+        "validation_layers"         | "2"  => totorial::validation_layers::main(),
+        "physical_device_selection" | "3"  => totorial::physical_device_selection::main(),
+        "logical_device"            | "4"  => totorial::logical_device::main(),
+        "window_surface"            | "5"  => totorial::window_surface::main(),
+        "swap_chain"                | "6"  => totorial::swap_chain::main(),
+        "image_views"               | "7"  => totorial::image_views::main(),
+        "graphics_pipeline"         | "8"  => totorial::graphics_pipeline::main(),
+        "shader_modules"            | "9"  => totorial::shader_modules::main(),
+        "fixed_functions"           | "10" => totorial::fixed_functions::main(),
         _ => {
             todo!();
         }

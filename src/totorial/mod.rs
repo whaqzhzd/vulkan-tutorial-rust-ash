@@ -1,4 +1,5 @@
 pub mod base_code;
+pub mod fixed_functions;
 pub mod graphics_pipeline;
 pub mod image_views;
 pub mod instance;
