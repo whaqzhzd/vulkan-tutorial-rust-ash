@@ -32,6 +32,8 @@ fn main() {
         "graphics_pipeline"         | "8"  => totorial::graphics_pipeline::main(),
         "shader_modules"            | "9"  => totorial::shader_modules::main(),
         "fixed_functions"           | "10" => totorial::fixed_functions::main(),
+        "render_passes"             | "11" => totorial::render_passes::main(),
+        "graphics_pipeline_complete"| "12" => totorial::graphics_pipeline_complete::main(),
         _ => {
             todo!();
         }
