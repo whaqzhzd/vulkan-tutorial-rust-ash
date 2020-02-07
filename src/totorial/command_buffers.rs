@@ -2,7 +2,7 @@
 //!
 //! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Physical_devices_and_queue_families
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
-//! cargo run --features=debug graphics_pipeline_complete
+//! cargo run --features=debug command_buffers
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -205,6 +205,21 @@ struct HelloTriangleApplication {
     /// 图形管线
     ///
     pub(crate) graphics_pipeline: Pipeline,
+
+    ///
+    /// 帧缓冲
+    ///
+    pub(crate) swap_chain_framebuffers: Vec<Framebuffer>,
+
+    ///
+    /// 创建命令池，然后才能创建命令缓冲区。命令池管理用于存储缓冲区的内存，并从中分配命令缓冲区
+    ///
+    pub(crate) command_pool: CommandPool,
+
+    ///
+    ///
+    ///
+    pub(crate) command_buffers: Vec<CommandBuffer>,
 }
 
 unsafe extern "system" fn debug_callback(
@@ -295,6 +310,9 @@ impl HelloTriangleApplication {
         self.create_image_views();
         self.create_render_pass();
         self.create_graphics_pipeline();
+        self.create_framebuffers();
+        self.create_command_pool();
+        self.create_command_buffers();
     }
 
     ///
@@ -1037,6 +1055,123 @@ impl HelloTriangleApplication {
     }
 
     ///
+    /// 创建帧缓冲
+    ///
+    pub(crate) fn create_framebuffers(&mut self) {
+        for (_i, &swap_chain_image_view) in self.swap_chain_image_views.iter().enumerate() {
+            let attachments = vec![ImageView::from(swap_chain_image_view)];
+
+            let framebuffer_info = FramebufferCreateInfo::builder()
+                .render_pass(self.render_pass)
+                .attachments(&attachments)
+                .width(self.swap_chain_extent.width)
+                .height(self.swap_chain_extent.height)
+                .layers(1)
+                .build();
+
+            unsafe {
+                self.swap_chain_framebuffers.push(
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .create_framebuffer(&framebuffer_info, None)
+                        .expect("create_framebuffer error"),
+                );
+            };
+        }
+    }
+
+    pub(crate) fn create_command_pool(&mut self) {
+        let physical_device = self.physical_device.as_ref().unwrap();
+        let indices = self.find_queue_families(physical_device);
+
+        //COMMAND_POOL_CREATE_TRANSIENT_BIT：提示命令缓冲区经常用新命令重新记录（可能会更改内存分配行为）
+        //COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT：允许单独重新记录命令缓冲区，没有此标志，则必须将它们全部一起重置
+        let pool_info = CommandPoolCreateInfo::builder()
+            .queue_family_index(indices.graphics_family.unwrap())
+            .build();
+
+        self.command_pool = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .create_command_pool(&pool_info, None)
+                .expect("command_pool error")
+        };
+    }
+
+    pub(crate) fn create_command_buffers(&mut self) {
+        let alloc_info = CommandBufferAllocateInfo::builder()
+            .command_pool(self.command_pool)
+            .level(CommandBufferLevel::PRIMARY)
+            .command_buffer_count(self.swap_chain_framebuffers.len() as u32)
+            .build();
+
+        self.command_buffers = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .allocate_command_buffers(&alloc_info)
+                .expect("allocate_command_buffers error")
+        };
+        unsafe {
+            for (i, &command_buffer) in self.command_buffers.iter().enumerate() {
+                let begin_info = CommandBufferBeginInfo::builder().build();
+
+                self.device
+                    .as_ref()
+                    .unwrap()
+                    .begin_command_buffer(command_buffer, &begin_info)
+                    .expect("begin_command_buffer error");
+
+                let clear_values = [ClearValue {
+                    color: ClearColorValue {
+                        float32: [0.0, 0.0, 0.0, 1.0],
+                    },
+                }];
+
+                let render_pass_info = RenderPassBeginInfo::builder()
+                    .render_pass(self.render_pass)
+                    .framebuffer(self.swap_chain_framebuffers[i])
+                    .render_area(Rect2D {
+                        offset: Offset2D { x: 0, y: 0 },
+                        extent: self.swap_chain_extent,
+                    })
+                    .clear_values(&clear_values)
+                    .build();
+
+                self.device.as_ref().unwrap().cmd_begin_render_pass(
+                    command_buffer,
+                    &render_pass_info,
+                    SubpassContents::INLINE,
+                );
+
+                self.device.as_ref().unwrap().cmd_bind_pipeline(
+                    command_buffer,
+                    PipelineBindPoint::GRAPHICS,
+                    self.graphics_pipeline,
+                );
+
+                self.device
+                    .as_ref()
+                    .unwrap()
+                    .cmd_draw(command_buffer, 3, 1, 0, 0);
+
+                self.device
+                    .as_ref()
+                    .unwrap()
+                    .cmd_end_render_pass(command_buffer);
+
+                self.device
+                    .as_ref()
+                    .unwrap()
+                    .end_command_buffer(command_buffer)
+                    .expect("end_command_buffer error");
+            }
+        }
+    }
+
+    ///
     /// 创建着色器模块
     ///
     pub(crate) fn create_shader_module(&self, code: &Vec<u32>) -> ShaderModule {
@@ -1306,6 +1441,18 @@ impl HelloTriangleApplication {
             }
 
             if let Some(instance) = self.instance.as_ref() {
+                self.device
+                    .as_ref()
+                    .unwrap()
+                    .destroy_command_pool(self.command_pool, None);
+
+                for (_i, &framebuffer) in self.swap_chain_framebuffers.iter().enumerate() {
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .destroy_framebuffer(framebuffer, None);
+                }
+
                 self.device
                     .as_ref()
                     .unwrap()

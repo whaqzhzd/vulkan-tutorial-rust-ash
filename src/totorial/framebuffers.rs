@@ -2,7 +2,7 @@
 //!
 //! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Physical_devices_and_queue_families
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
-//! cargo run --features=debug graphics_pipeline_complete
+//! cargo run --features=debug framebuffers
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -205,6 +205,11 @@ struct HelloTriangleApplication {
     /// 图形管线
     ///
     pub(crate) graphics_pipeline: Pipeline,
+
+    ///
+    /// 帧缓冲
+    ///
+    pub(crate) swap_chain_framebuffers: Vec<Framebuffer>,
 }
 
 unsafe extern "system" fn debug_callback(
@@ -295,6 +300,7 @@ impl HelloTriangleApplication {
         self.create_image_views();
         self.create_render_pass();
         self.create_graphics_pipeline();
+        self.create_framebuffers();
     }
 
     ///
@@ -1037,6 +1043,33 @@ impl HelloTriangleApplication {
     }
 
     ///
+    /// 创建帧缓冲
+    ///
+    pub(crate) fn create_framebuffers(&mut self) {
+        for (_i, &swap_chain_image_view) in self.swap_chain_image_views.iter().enumerate() {
+            let attachments = vec![ImageView::from(swap_chain_image_view)];
+
+            let framebuffer_info = FramebufferCreateInfo::builder()
+                .render_pass(self.render_pass)
+                .attachments(&attachments)
+                .width(self.swap_chain_extent.width)
+                .height(self.swap_chain_extent.height)
+                .layers(1)
+                .build();
+
+            unsafe {
+                self.swap_chain_framebuffers.push(
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .create_framebuffer(&framebuffer_info, None)
+                        .expect("create_framebuffer error"),
+                );
+            };
+        }
+    }
+
+    ///
     /// 创建着色器模块
     ///
     pub(crate) fn create_shader_module(&self, code: &Vec<u32>) -> ShaderModule {
@@ -1306,6 +1339,13 @@ impl HelloTriangleApplication {
             }
 
             if let Some(instance) = self.instance.as_ref() {
+                for (_i, &framebuffer) in self.swap_chain_framebuffers.iter().enumerate() {
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .destroy_framebuffer(framebuffer, None);
+                }
+
                 self.device
                     .as_ref()
                     .unwrap()

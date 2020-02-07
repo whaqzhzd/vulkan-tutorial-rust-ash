@@ -34,6 +34,8 @@ fn main() {
         "fixed_functions"           | "10" => totorial::fixed_functions::main(),
         "render_passes"             | "11" => totorial::render_passes::main(),
         "graphics_pipeline_complete"| "12" => totorial::graphics_pipeline_complete::main(),
+        "framebuffers"              | "13" => totorial::framebuffers::main(),
+        "command_buffers"           | "14" => totorial::command_buffers::main(),
         _ => {
             todo!();
         }
