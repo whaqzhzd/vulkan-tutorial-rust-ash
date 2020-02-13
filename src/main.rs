@@ -36,6 +36,7 @@ fn main() {
         "graphics_pipeline_complete"| "12" => totorial::graphics_pipeline_complete::main(),
         "framebuffers"              | "13" => totorial::framebuffers::main(),
         "command_buffers"           | "14" => totorial::command_buffers::main(),
+        "rendering_and_presentation"| "16" => totorial::rendering_and_presentation::main(),
         _ => {
             todo!();
         }

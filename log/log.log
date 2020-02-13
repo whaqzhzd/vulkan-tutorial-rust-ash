@@ -825,3 +825,2228 @@
 }
 2020-02-07T21:11:55.526834+08:00 - 物理设备是否支持几何着色器: 1
 2020-02-07T21:11:57.419767400+08:00 - clean_up
+2020-02-08T13:08:06.747883600+08:00 - 参数列表:["E:\\project\\vulkan-tutorial-rust-ash\\target\\debug\\vulkan_tutorial_rust.exe", "14", "--features=debug"]
+2020-02-08T13:08:06.881526200+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-08T13:08:06.881526200+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-08T13:08:06.884553100+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-08T13:08:07.183717600+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-08T13:08:07.184715900+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-08T13:08:07.187708+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4198470,
+    driver_version: 1669758976,
+    vendor_id: 4318,
+    device_id: 7200,
+    device_type: DISCRETE_GPU,
+    device_name: "GeForce GTX 1060",
+    pipeline_cache_uuid: [
+        43,
+        177,
+        34,
+        45,
+        147,
+        196,
+        31,
+        26,
+        75,
+        29,
+        131,
+        54,
+        15,
+        2,
+        3,
+        136,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 32768,
+        max_image_dimension2_d: 32768,
+        max_image_dimension3_d: 16384,
+        max_image_dimension_cube: 32768,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 4294967295,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4096,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1024,
+        sparse_address_space_size: 18446744073709551615,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 1048576,
+        max_per_stage_descriptor_uniform_buffers: 15,
+        max_per_stage_descriptor_storage_buffers: 1048576,
+        max_per_stage_descriptor_sampled_images: 1048576,
+        max_per_stage_descriptor_storage_images: 1048576,
+        max_per_stage_descriptor_input_attachments: 1048576,
+        max_per_stage_resources: 4294967295,
+        max_descriptor_set_samplers: 1048576,
+        max_descriptor_set_uniform_buffers: 90,
+        max_descriptor_set_uniform_buffers_dynamic: 15,
+        max_descriptor_set_storage_buffers: 1048576,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1048576,
+        max_descriptor_set_storage_images: 1048576,
+        max_descriptor_set_input_attachments: 1048576,
+        max_vertex_input_attributes: 32,
+        max_vertex_input_bindings: 32,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 2048,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4216,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 1024,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 49152,
+        max_compute_work_group_count: [
+            2147483647,
+            65535,
+            65535,
+        ],
+        max_compute_work_group_invocations: 1536,
+        max_compute_work_group_size: [
+            1536,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 15.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65536.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 256,
+        min_storage_buffer_offset_alignment: 32,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 32768,
+        max_framebuffer_height: 32768,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 1.0,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            1.0,
+            189.875,
+        ],
+        line_width_range: [
+            0.5,
+            10.0,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.125,
+        strict_lines: 1,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 1,
+        optimal_buffer_copy_row_pitch_alignment: 1,
+        non_coherent_atom_size: 64,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 1,
+    },
+}
+2020-02-08T13:08:07.291431400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:08:12.982198400+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:08:12.983198400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:08:12.985192200+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4194370,
+    driver_version: 65538,
+    vendor_id: 32902,
+    device_id: 16027,
+    device_type: INTEGRATED_GPU,
+    device_name: "Intel(R) UHD Graphics 630",
+    pipeline_cache_uuid: [
+        94,
+        37,
+        93,
+        41,
+        86,
+        47,
+        104,
+        42,
+        85,
+        36,
+        82,
+        40,
+        84,
+        45,
+        42,
+        26,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 16384,
+        max_image_dimension2_d: 16384,
+        max_image_dimension3_d: 2048,
+        max_image_dimension_cube: 16384,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 134217728,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4290852446,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1,
+        sparse_address_space_size: 17592186044416,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 64,
+        max_per_stage_descriptor_uniform_buffers: 200,
+        max_per_stage_descriptor_storage_buffers: 200,
+        max_per_stage_descriptor_sampled_images: 200,
+        max_per_stage_descriptor_storage_images: 16,
+        max_per_stage_descriptor_input_attachments: 8,
+        max_per_stage_resources: 200,
+        max_descriptor_set_samplers: 384,
+        max_descriptor_set_uniform_buffers: 1200,
+        max_descriptor_set_uniform_buffers_dynamic: 16,
+        max_descriptor_set_storage_buffers: 1200,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1200,
+        max_descriptor_set_storage_images: 96,
+        max_descriptor_set_input_attachments: 8,
+        max_vertex_input_attributes: 16,
+        max_vertex_input_bindings: 16,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 4095,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4096,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 256,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 32768,
+        max_compute_work_group_count: [
+            65536,
+            65536,
+            65536,
+        ],
+        max_compute_work_group_invocations: 1024,
+        max_compute_work_group_size: [
+            1024,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 16.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65535.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 32,
+        min_storage_buffer_offset_alignment: 16,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 16384,
+        max_framebuffer_height: 16384,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 83.333,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            0.125,
+            255.875,
+        ],
+        line_width_range: [
+            0.0,
+            7.9921875,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.0078125,
+        strict_lines: 0,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 16,
+        optimal_buffer_copy_row_pitch_alignment: 16,
+        non_coherent_atom_size: 1,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 0,
+    },
+}
+2020-02-08T13:08:13.111853300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:08:13.112849900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:08:13.112849900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:08:13.114845100+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4194370,
+    driver_version: 65538,
+    vendor_id: 32902,
+    device_id: 16027,
+    device_type: INTEGRATED_GPU,
+    device_name: "Intel(R) UHD Graphics 630",
+    pipeline_cache_uuid: [
+        94,
+        37,
+        93,
+        41,
+        86,
+        47,
+        104,
+        42,
+        85,
+        36,
+        82,
+        40,
+        84,
+        45,
+        42,
+        26,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 16384,
+        max_image_dimension2_d: 16384,
+        max_image_dimension3_d: 2048,
+        max_image_dimension_cube: 16384,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 134217728,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4290852446,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1,
+        sparse_address_space_size: 17592186044416,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 64,
+        max_per_stage_descriptor_uniform_buffers: 200,
+        max_per_stage_descriptor_storage_buffers: 200,
+        max_per_stage_descriptor_sampled_images: 200,
+        max_per_stage_descriptor_storage_images: 16,
+        max_per_stage_descriptor_input_attachments: 8,
+        max_per_stage_resources: 200,
+        max_descriptor_set_samplers: 384,
+        max_descriptor_set_uniform_buffers: 1200,
+        max_descriptor_set_uniform_buffers_dynamic: 16,
+        max_descriptor_set_storage_buffers: 1200,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1200,
+        max_descriptor_set_storage_images: 96,
+        max_descriptor_set_input_attachments: 8,
+        max_vertex_input_attributes: 16,
+        max_vertex_input_bindings: 16,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 4095,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4096,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 256,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 32768,
+        max_compute_work_group_count: [
+            65536,
+            65536,
+            65536,
+        ],
+        max_compute_work_group_invocations: 1024,
+        max_compute_work_group_size: [
+            1024,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 16.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65535.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 32,
+        min_storage_buffer_offset_alignment: 16,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 16384,
+        max_framebuffer_height: 16384,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 83.333,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            0.125,
+            255.875,
+        ],
+        line_width_range: [
+            0.0,
+            7.9921875,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.0078125,
+        strict_lines: 0,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 16,
+        optimal_buffer_copy_row_pitch_alignment: 16,
+        non_coherent_atom_size: 1,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 0,
+    },
+}
+2020-02-08T13:08:13.231532400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:08:13.248487600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:08:13.248487600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:08:13.249484400+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4194370,
+    driver_version: 65538,
+    vendor_id: 32902,
+    device_id: 16027,
+    device_type: INTEGRATED_GPU,
+    device_name: "Intel(R) UHD Graphics 630",
+    pipeline_cache_uuid: [
+        94,
+        37,
+        93,
+        41,
+        86,
+        47,
+        104,
+        42,
+        85,
+        36,
+        82,
+        40,
+        84,
+        45,
+        42,
+        26,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 16384,
+        max_image_dimension2_d: 16384,
+        max_image_dimension3_d: 2048,
+        max_image_dimension_cube: 16384,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 134217728,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4290852446,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1,
+        sparse_address_space_size: 17592186044416,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 64,
+        max_per_stage_descriptor_uniform_buffers: 200,
+        max_per_stage_descriptor_storage_buffers: 200,
+        max_per_stage_descriptor_sampled_images: 200,
+        max_per_stage_descriptor_storage_images: 16,
+        max_per_stage_descriptor_input_attachments: 8,
+        max_per_stage_resources: 200,
+        max_descriptor_set_samplers: 384,
+        max_descriptor_set_uniform_buffers: 1200,
+        max_descriptor_set_uniform_buffers_dynamic: 16,
+        max_descriptor_set_storage_buffers: 1200,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1200,
+        max_descriptor_set_storage_images: 96,
+        max_descriptor_set_input_attachments: 8,
+        max_vertex_input_attributes: 16,
+        max_vertex_input_bindings: 16,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 4095,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4096,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 256,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 32768,
+        max_compute_work_group_count: [
+            65536,
+            65536,
+            65536,
+        ],
+        max_compute_work_group_invocations: 1024,
+        max_compute_work_group_size: [
+            1024,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 16.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65535.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 32,
+        min_storage_buffer_offset_alignment: 16,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 16384,
+        max_framebuffer_height: 16384,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 83.333,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            0.125,
+            255.875,
+        ],
+        line_width_range: [
+            0.0,
+            7.9921875,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.0078125,
+        strict_lines: 0,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 16,
+        optimal_buffer_copy_row_pitch_alignment: 16,
+        non_coherent_atom_size: 1,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 0,
+    },
+}
+2020-02-08T13:08:13.343242600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:08:13.459929100+08:00 - 交换链数量:3
+2020-02-08T13:08:13.480931700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:08:13.481928500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:08:13.482867500+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4194370,
+    driver_version: 65538,
+    vendor_id: 32902,
+    device_id: 16027,
+    device_type: INTEGRATED_GPU,
+    device_name: "Intel(R) UHD Graphics 630",
+    pipeline_cache_uuid: [
+        94,
+        37,
+        93,
+        41,
+        86,
+        47,
+        104,
+        42,
+        85,
+        36,
+        82,
+        40,
+        84,
+        45,
+        42,
+        26,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 16384,
+        max_image_dimension2_d: 16384,
+        max_image_dimension3_d: 2048,
+        max_image_dimension_cube: 16384,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 134217728,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4290852446,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1,
+        sparse_address_space_size: 17592186044416,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 64,
+        max_per_stage_descriptor_uniform_buffers: 200,
+        max_per_stage_descriptor_storage_buffers: 200,
+        max_per_stage_descriptor_sampled_images: 200,
+        max_per_stage_descriptor_storage_images: 16,
+        max_per_stage_descriptor_input_attachments: 8,
+        max_per_stage_resources: 200,
+        max_descriptor_set_samplers: 384,
+        max_descriptor_set_uniform_buffers: 1200,
+        max_descriptor_set_uniform_buffers_dynamic: 16,
+        max_descriptor_set_storage_buffers: 1200,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1200,
+        max_descriptor_set_storage_images: 96,
+        max_descriptor_set_input_attachments: 8,
+        max_vertex_input_attributes: 16,
+        max_vertex_input_bindings: 16,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 4095,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4096,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 256,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 32768,
+        max_compute_work_group_count: [
+            65536,
+            65536,
+            65536,
+        ],
+        max_compute_work_group_invocations: 1024,
+        max_compute_work_group_size: [
+            1024,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 16.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65535.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 32,
+        min_storage_buffer_offset_alignment: 16,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 16384,
+        max_framebuffer_height: 16384,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 83.333,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            0.125,
+            255.875,
+        ],
+        line_width_range: [
+            0.0,
+            7.9921875,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.0078125,
+        strict_lines: 0,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 16,
+        optimal_buffer_copy_row_pitch_alignment: 16,
+        non_coherent_atom_size: 1,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 0,
+    },
+}
+2020-02-08T13:08:13.598559400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:11:51.013564+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "command_buffers"]
+2020-02-08T13:11:51.055452800+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-08T13:11:51.067421700+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-08T13:11:51.068418700+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-08T13:11:51.068418700+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-08T13:11:51.272157800+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-08T13:11:51.275150300+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-08T13:11:51.314159+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4198470,
+    driver_version: 1669758976,
+    vendor_id: 4318,
+    device_id: 7200,
+    device_type: DISCRETE_GPU,
+    device_name: "GeForce GTX 1060",
+    pipeline_cache_uuid: [
+        43,
+        177,
+        34,
+        45,
+        147,
+        196,
+        31,
+        26,
+        75,
+        29,
+        131,
+        54,
+        15,
+        2,
+        3,
+        136,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 32768,
+        max_image_dimension2_d: 32768,
+        max_image_dimension3_d: 16384,
+        max_image_dimension_cube: 32768,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 4294967295,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4096,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1024,
+        sparse_address_space_size: 18446744073709551615,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 1048576,
+        max_per_stage_descriptor_uniform_buffers: 15,
+        max_per_stage_descriptor_storage_buffers: 1048576,
+        max_per_stage_descriptor_sampled_images: 1048576,
+        max_per_stage_descriptor_storage_images: 1048576,
+        max_per_stage_descriptor_input_attachments: 1048576,
+        max_per_stage_resources: 4294967295,
+        max_descriptor_set_samplers: 1048576,
+        max_descriptor_set_uniform_buffers: 90,
+        max_descriptor_set_uniform_buffers_dynamic: 15,
+        max_descriptor_set_storage_buffers: 1048576,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1048576,
+        max_descriptor_set_storage_images: 1048576,
+        max_descriptor_set_input_attachments: 1048576,
+        max_vertex_input_attributes: 32,
+        max_vertex_input_bindings: 32,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 2048,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4216,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 1024,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 49152,
+        max_compute_work_group_count: [
+            2147483647,
+            65535,
+            65535,
+        ],
+        max_compute_work_group_invocations: 1536,
+        max_compute_work_group_size: [
+            1536,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 15.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65536.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 256,
+        min_storage_buffer_offset_alignment: 32,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 32768,
+        max_framebuffer_height: 32768,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 1.0,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            1.0,
+            189.875,
+        ],
+        line_width_range: [
+            0.5,
+            10.0,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.125,
+        strict_lines: 1,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 1,
+        optimal_buffer_copy_row_pitch_alignment: 1,
+        non_coherent_atom_size: 64,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 1,
+    },
+}
+2020-02-08T13:11:51.416955800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:11:51.417953500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:11:51.417953500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:11:51.417953500+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4194370,
+    driver_version: 65538,
+    vendor_id: 32902,
+    device_id: 16027,
+    device_type: INTEGRATED_GPU,
+    device_name: "Intel(R) UHD Graphics 630",
+    pipeline_cache_uuid: [
+        94,
+        37,
+        93,
+        41,
+        86,
+        47,
+        104,
+        42,
+        85,
+        36,
+        82,
+        40,
+        84,
+        45,
+        42,
+        26,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 16384,
+        max_image_dimension2_d: 16384,
+        max_image_dimension3_d: 2048,
+        max_image_dimension_cube: 16384,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 134217728,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4290852446,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1,
+        sparse_address_space_size: 17592186044416,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 64,
+        max_per_stage_descriptor_uniform_buffers: 200,
+        max_per_stage_descriptor_storage_buffers: 200,
+        max_per_stage_descriptor_sampled_images: 200,
+        max_per_stage_descriptor_storage_images: 16,
+        max_per_stage_descriptor_input_attachments: 8,
+        max_per_stage_resources: 200,
+        max_descriptor_set_samplers: 384,
+        max_descriptor_set_uniform_buffers: 1200,
+        max_descriptor_set_uniform_buffers_dynamic: 16,
+        max_descriptor_set_storage_buffers: 1200,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1200,
+        max_descriptor_set_storage_images: 96,
+        max_descriptor_set_input_attachments: 8,
+        max_vertex_input_attributes: 16,
+        max_vertex_input_bindings: 16,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 4095,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4096,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 256,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 32768,
+        max_compute_work_group_count: [
+            65536,
+            65536,
+            65536,
+        ],
+        max_compute_work_group_invocations: 1024,
+        max_compute_work_group_size: [
+            1024,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 16.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65535.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 32,
+        min_storage_buffer_offset_alignment: 16,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 16384,
+        max_framebuffer_height: 16384,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 83.333,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            0.125,
+            255.875,
+        ],
+        line_width_range: [
+            0.0,
+            7.9921875,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.0078125,
+        strict_lines: 0,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 16,
+        optimal_buffer_copy_row_pitch_alignment: 16,
+        non_coherent_atom_size: 1,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 0,
+    },
+}
+2020-02-08T13:11:51.723993900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:11:51.724991100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:11:51.724991100+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:11:51.724991100+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4194370,
+    driver_version: 65538,
+    vendor_id: 32902,
+    device_id: 16027,
+    device_type: INTEGRATED_GPU,
+    device_name: "Intel(R) UHD Graphics 630",
+    pipeline_cache_uuid: [
+        94,
+        37,
+        93,
+        41,
+        86,
+        47,
+        104,
+        42,
+        85,
+        36,
+        82,
+        40,
+        84,
+        45,
+        42,
+        26,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 16384,
+        max_image_dimension2_d: 16384,
+        max_image_dimension3_d: 2048,
+        max_image_dimension_cube: 16384,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 134217728,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4290852446,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1,
+        sparse_address_space_size: 17592186044416,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 64,
+        max_per_stage_descriptor_uniform_buffers: 200,
+        max_per_stage_descriptor_storage_buffers: 200,
+        max_per_stage_descriptor_sampled_images: 200,
+        max_per_stage_descriptor_storage_images: 16,
+        max_per_stage_descriptor_input_attachments: 8,
+        max_per_stage_resources: 200,
+        max_descriptor_set_samplers: 384,
+        max_descriptor_set_uniform_buffers: 1200,
+        max_descriptor_set_uniform_buffers_dynamic: 16,
+        max_descriptor_set_storage_buffers: 1200,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1200,
+        max_descriptor_set_storage_images: 96,
+        max_descriptor_set_input_attachments: 8,
+        max_vertex_input_attributes: 16,
+        max_vertex_input_bindings: 16,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 4095,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4096,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 256,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 32768,
+        max_compute_work_group_count: [
+            65536,
+            65536,
+            65536,
+        ],
+        max_compute_work_group_invocations: 1024,
+        max_compute_work_group_size: [
+            1024,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 16.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65535.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 32,
+        min_storage_buffer_offset_alignment: 16,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 16384,
+        max_framebuffer_height: 16384,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 83.333,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            0.125,
+            255.875,
+        ],
+        line_width_range: [
+            0.0,
+            7.9921875,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.0078125,
+        strict_lines: 0,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 16,
+        optimal_buffer_copy_row_pitch_alignment: 16,
+        non_coherent_atom_size: 1,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 0,
+    },
+}
+2020-02-08T13:11:51.835699800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:11:51.848668100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:11:51.860633500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:11:51.861630200+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4194370,
+    driver_version: 65538,
+    vendor_id: 32902,
+    device_id: 16027,
+    device_type: INTEGRATED_GPU,
+    device_name: "Intel(R) UHD Graphics 630",
+    pipeline_cache_uuid: [
+        94,
+        37,
+        93,
+        41,
+        86,
+        47,
+        104,
+        42,
+        85,
+        36,
+        82,
+        40,
+        84,
+        45,
+        42,
+        26,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 16384,
+        max_image_dimension2_d: 16384,
+        max_image_dimension3_d: 2048,
+        max_image_dimension_cube: 16384,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 134217728,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4290852446,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1,
+        sparse_address_space_size: 17592186044416,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 64,
+        max_per_stage_descriptor_uniform_buffers: 200,
+        max_per_stage_descriptor_storage_buffers: 200,
+        max_per_stage_descriptor_sampled_images: 200,
+        max_per_stage_descriptor_storage_images: 16,
+        max_per_stage_descriptor_input_attachments: 8,
+        max_per_stage_resources: 200,
+        max_descriptor_set_samplers: 384,
+        max_descriptor_set_uniform_buffers: 1200,
+        max_descriptor_set_uniform_buffers_dynamic: 16,
+        max_descriptor_set_storage_buffers: 1200,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1200,
+        max_descriptor_set_storage_images: 96,
+        max_descriptor_set_input_attachments: 8,
+        max_vertex_input_attributes: 16,
+        max_vertex_input_bindings: 16,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 4095,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4096,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 256,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 32768,
+        max_compute_work_group_count: [
+            65536,
+            65536,
+            65536,
+        ],
+        max_compute_work_group_invocations: 1024,
+        max_compute_work_group_size: [
+            1024,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 16.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65535.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 32,
+        min_storage_buffer_offset_alignment: 16,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 16384,
+        max_framebuffer_height: 16384,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 83.333,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            0.125,
+            255.875,
+        ],
+        line_width_range: [
+            0.0,
+            7.9921875,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.0078125,
+        strict_lines: 0,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 16,
+        optimal_buffer_copy_row_pitch_alignment: 16,
+        non_coherent_atom_size: 1,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 0,
+    },
+}
+2020-02-08T13:11:52.024705600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:11:52.096512900+08:00 - 交换链数量:3
+2020-02-08T13:11:52.111473900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:11:52.111473900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:11:52.112472400+08:00 - 物理设备属性：PhysicalDeviceProperties {
+    api_version: 4194370,
+    driver_version: 65538,
+    vendor_id: 32902,
+    device_id: 16027,
+    device_type: INTEGRATED_GPU,
+    device_name: "Intel(R) UHD Graphics 630",
+    pipeline_cache_uuid: [
+        94,
+        37,
+        93,
+        41,
+        86,
+        47,
+        104,
+        42,
+        85,
+        36,
+        82,
+        40,
+        84,
+        45,
+        42,
+        26,
+    ],
+    limits: PhysicalDeviceLimits {
+        max_image_dimension1_d: 16384,
+        max_image_dimension2_d: 16384,
+        max_image_dimension3_d: 2048,
+        max_image_dimension_cube: 16384,
+        max_image_array_layers: 2048,
+        max_texel_buffer_elements: 134217728,
+        max_uniform_buffer_range: 65536,
+        max_storage_buffer_range: 134217728,
+        max_push_constants_size: 256,
+        max_memory_allocation_count: 4290852446,
+        max_sampler_allocation_count: 4000,
+        buffer_image_granularity: 1,
+        sparse_address_space_size: 17592186044416,
+        max_bound_descriptor_sets: 8,
+        max_per_stage_descriptor_samplers: 64,
+        max_per_stage_descriptor_uniform_buffers: 200,
+        max_per_stage_descriptor_storage_buffers: 200,
+        max_per_stage_descriptor_sampled_images: 200,
+        max_per_stage_descriptor_storage_images: 16,
+        max_per_stage_descriptor_input_attachments: 8,
+        max_per_stage_resources: 200,
+        max_descriptor_set_samplers: 384,
+        max_descriptor_set_uniform_buffers: 1200,
+        max_descriptor_set_uniform_buffers_dynamic: 16,
+        max_descriptor_set_storage_buffers: 1200,
+        max_descriptor_set_storage_buffers_dynamic: 16,
+        max_descriptor_set_sampled_images: 1200,
+        max_descriptor_set_storage_images: 96,
+        max_descriptor_set_input_attachments: 8,
+        max_vertex_input_attributes: 16,
+        max_vertex_input_bindings: 16,
+        max_vertex_input_attribute_offset: 2047,
+        max_vertex_input_binding_stride: 4095,
+        max_vertex_output_components: 128,
+        max_tessellation_generation_level: 64,
+        max_tessellation_patch_size: 32,
+        max_tessellation_control_per_vertex_input_components: 128,
+        max_tessellation_control_per_vertex_output_components: 128,
+        max_tessellation_control_per_patch_output_components: 120,
+        max_tessellation_control_total_output_components: 4096,
+        max_tessellation_evaluation_input_components: 128,
+        max_tessellation_evaluation_output_components: 128,
+        max_geometry_shader_invocations: 32,
+        max_geometry_input_components: 128,
+        max_geometry_output_components: 128,
+        max_geometry_output_vertices: 256,
+        max_geometry_total_output_components: 1024,
+        max_fragment_input_components: 128,
+        max_fragment_output_attachments: 8,
+        max_fragment_dual_src_attachments: 1,
+        max_fragment_combined_output_resources: 16,
+        max_compute_shared_memory_size: 32768,
+        max_compute_work_group_count: [
+            65536,
+            65536,
+            65536,
+        ],
+        max_compute_work_group_invocations: 1024,
+        max_compute_work_group_size: [
+            1024,
+            1024,
+            64,
+        ],
+        sub_pixel_precision_bits: 8,
+        sub_texel_precision_bits: 8,
+        mipmap_precision_bits: 8,
+        max_draw_indexed_index_value: 4294967295,
+        max_draw_indirect_count: 4294967295,
+        max_sampler_lod_bias: 16.0,
+        max_sampler_anisotropy: 16.0,
+        max_viewports: 16,
+        max_viewport_dimensions: [
+            32768,
+            32768,
+        ],
+        viewport_bounds_range: [
+            -65536.0,
+            65535.0,
+        ],
+        viewport_sub_pixel_bits: 8,
+        min_memory_map_alignment: 64,
+        min_texel_buffer_offset_alignment: 16,
+        min_uniform_buffer_offset_alignment: 32,
+        min_storage_buffer_offset_alignment: 16,
+        min_texel_offset: -8,
+        max_texel_offset: 7,
+        min_texel_gather_offset: -32,
+        max_texel_gather_offset: 31,
+        min_interpolation_offset: -0.5,
+        max_interpolation_offset: 0.4375,
+        sub_pixel_interpolation_offset_bits: 4,
+        max_framebuffer_width: 16384,
+        max_framebuffer_height: 16384,
+        max_framebuffer_layers: 2048,
+        framebuffer_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        framebuffer_no_attachments_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_color_attachments: 8,
+        sampled_image_color_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_integer_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_depth_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        sampled_image_stencil_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        storage_image_sample_counts: TYPE_1 | TYPE_2 | TYPE_4 | TYPE_8 | TYPE_16,
+        max_sample_mask_words: 1,
+        timestamp_compute_and_graphics: 1,
+        timestamp_period: 83.333,
+        max_clip_distances: 8,
+        max_cull_distances: 8,
+        max_combined_clip_and_cull_distances: 8,
+        discrete_queue_priorities: 2,
+        point_size_range: [
+            0.125,
+            255.875,
+        ],
+        line_width_range: [
+            0.0,
+            7.9921875,
+        ],
+        point_size_granularity: 0.125,
+        line_width_granularity: 0.0078125,
+        strict_lines: 0,
+        standard_sample_locations: 1,
+        optimal_buffer_copy_offset_alignment: 16,
+        optimal_buffer_copy_row_pitch_alignment: 16,
+        non_coherent_atom_size: 1,
+    },
+    sparse_properties: PhysicalDeviceSparseProperties {
+        residency_standard2_d_block_shape: 1,
+        residency_standard2_d_multisample_block_shape: 1,
+        residency_standard3_d_block_shape: 1,
+        residency_aligned_mip_size: 0,
+        residency_non_resident_strict: 0,
+    },
+}
+2020-02-08T13:11:52.259078900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:19.437219600+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "command_buffers"]
+2020-02-08T13:12:19.500013900+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-08T13:12:19.505998700+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-08T13:12:19.547913700+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-08T13:12:19.629668500+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-08T13:12:19.789310200+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-08T13:12:19.789310200+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-08T13:12:19.790307900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:19.791304800+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:12:19.791304800+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:12:19.824217500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:19.825213700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:12:19.825213700+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:12:19.826211900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:19.872088600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:12:19.894201200+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:12:19.895201+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:19.994050900+08:00 - 交换链数量:3
+2020-02-08T13:12:20.007015300+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:12:20.023969600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:12:20.024967400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:35.155911200+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "command_buffers"]
+2020-02-08T13:12:35.234702900+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-08T13:12:35.337425300+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-08T13:12:35.337425300+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-08T13:12:35.338422900+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-08T13:12:35.536992600+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-08T13:12:35.537988600+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-08T13:12:35.537988600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:35.538986600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:12:35.539984400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:12:35.573125100+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:35.574124100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:12:35.575119300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:12:35.575119300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:35.588084400+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:12:35.612021800+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:12:35.612021800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:35.694800+08:00 - 交换链数量:3
+2020-02-08T13:12:35.706801200+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:12:35.707764800+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:12:35.707764800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:12:37.670225500+08:00 - clean_up
+2020-02-08T13:14:22.431454700+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "command_buffers"]
+2020-02-08T13:14:22.499245100+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-08T13:14:22.515196900+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-08T13:14:22.515196900+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-08T13:14:22.516193200+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-08T13:14:22.682747900+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-08T13:14:22.682747900+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-08T13:14:22.682747900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:14:22.683745+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:14:22.684742600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:14:22.719648900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:14:22.720645900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:14:22.720645900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:14:22.721643400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:14:22.738628800+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:14:22.760541100+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:14:22.760541100+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:14:22.862277900+08:00 - 交换链数量:3
+2020-02-08T13:14:22.875243300+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:14:22.902179700+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:14:22.903168900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:21:02.852426+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "command_buffers"]
+2020-02-08T13:21:02.914259300+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-08T13:21:02.972613900+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-08T13:21:03.011511600+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-08T13:21:03.011511600+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-08T13:21:03.190540400+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-08T13:21:03.190540400+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-08T13:21:03.191537600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:21:03.192534+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:21:03.224450200+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:21:03.224450200+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:21:03.225447600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:21:03.226444400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:21:03.227473500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:21:03.242404700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:21:03.270326600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:21:03.270326600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:21:03.370060900+08:00 - 交换链数量:3
+2020-02-08T13:21:03.383024900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-08T13:21:03.402979+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-08T13:21:03.403971200+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-08T13:21:20.956368+08:00 - clean_up
+2020-02-11T11:38:46.035619700+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "16"]
+2020-02-11T11:38:46.086480700+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-11T11:38:46.101477800+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-11T11:38:46.101477800+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-11T11:38:46.102437600+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-11T11:38:46.323846200+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-11T11:38:46.323846200+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-11T11:38:46.324843400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-11T11:38:46.325916400+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-11T11:38:46.355760600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-11T11:38:46.356759400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-11T11:38:46.357755300+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-11T11:38:46.358819300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-11T11:38:46.358819300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-11T11:38:46.369757900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-11T11:38:46.370755500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-11T11:38:46.370755500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-11T11:38:46.444522700+08:00 - 交换链数量:3
+2020-02-11T11:38:46.474460900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-11T11:38:46.506359500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-11T11:38:46.515335800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-11T11:38:55.506267400+08:00 - clean_up
+2020-02-12T10:13:21.758835600+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-12T10:13:21.843145500+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-12T10:13:21.932483800+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-12T10:13:21.933481500+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-12T10:13:21.933481500+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-12T10:13:22.225833500+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-12T10:13:22.227828300+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-12T10:13:22.231817700+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:13:22.232815+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:13:22.233812300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:13:22.234809400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:13:22.234809400+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:13:22.235807+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:13:22.235807+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:13:22.247775+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:13:22.331602500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:13:22.331602500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:13:22.453225200+08:00 - 交换链数量:3
+2020-02-12T10:13:22.481216600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:13:22.569950400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:13:22.570911600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:13:23.984856+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:13:23.985794300+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:13:23.985794300+08:00 - debug_callback : "VkQueue 0x2c64aa03d68[] is signaling VkSemaphore 0x51b3510000000014[] that was previously signaled by VkQueue 0x2c64aa03d68[] but has not since been waited on by any queue."
+2020-02-12T10:13:24.329387300+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:13:24.508907400+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:13:24.640555+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T10:13:24.642549100+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:13:24.643547+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:13:24.643547+08:00 - debug_callback : "VkQueue 0x2c64aa03d68[] is signaling VkSemaphore 0x51b3510000000014[] that was previously signaled by VkQueue 0x2c64aa03d68[] but has not since been waited on by any queue."
+2020-02-12T10:13:24.647536200+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:13:24.648533+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:13:24.648533+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T10:14:06.779322600+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-12T10:14:06.857115600+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-12T10:14:06.988386700+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-12T10:14:06.988386700+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-12T10:14:07.041501800+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-12T10:14:07.438395200+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-12T10:14:07.438395200+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-12T10:14:07.439364600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:07.440362500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:14:07.440362500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:14:07.441359600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:07.442357+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:14:07.442357+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:14:07.442357+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:07.453328+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:14:07.454325100+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:14:07.454325100+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:07.524139200+08:00 - 交换链数量:3
+2020-02-12T10:14:07.575068800+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:14:07.724636900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:14:07.846277300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:12.918035800+08:00 - clean_up
+2020-02-12T10:14:23.704209300+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-12T10:14:23.782998700+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-12T10:14:23.870762300+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-12T10:14:23.871759100+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-12T10:14:23.871759100+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-12T10:14:24.108168900+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-12T10:14:24.108168900+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-12T10:14:24.109128500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:24.110125700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:14:24.110125700+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:14:24.111123500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:24.111123500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:14:24.112120500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:14:24.112120500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:24.123090900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:14:24.123090900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:14:24.123090900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:24.250750+08:00 - 交换链数量:3
+2020-02-12T10:14:24.337984700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:14:24.481050500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:14:24.602699600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:14:25.541336700+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:14:25.542344+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:14:25.543338+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:14:25.572643700+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:14:25.647479400+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:14:25.648441400+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:14:25.649474700+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:14:25.650436+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:14:25.650436+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T10:14:25.652456800+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:14:25.652456800+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:14:25.653438600+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:14:25.654467+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:14:25.654467+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:14:25.655467+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T10:16:02.833315200+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-12T10:16:02.896059+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-12T10:16:04.002730900+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-12T10:16:04.233114400+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-12T10:16:04.251066400+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-12T10:16:04.528394900+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-12T10:16:04.529390800+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-12T10:16:04.530411+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:04.532382300+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:16:04.532382300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:16:04.533381+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:04.533381+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:16:04.533381+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:16:04.533381+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:04.545350200+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:16:04.652063200+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:16:04.752143400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:04.889320100+08:00 - 交换链数量:3
+2020-02-12T10:16:04.986100500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:16:04.986100500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:16:04.987061200+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:05.051910600+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:05.095813700+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:05.096766300+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:16:05.097763400+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:05.098760500+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:05.098760500+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:16:05.099757700+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:05.100755100+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:05.100755100+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T10:16:05.124690700+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:05.212456600+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:05.213454100+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:16:05.215449+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:05.215449+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:05.216446+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T10:16:46.914621600+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-12T10:16:47.100665800+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-12T10:16:48.021729200+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-12T10:16:48.021729200+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-12T10:16:48.130080200+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-12T10:16:48.488135200+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-12T10:16:48.488135200+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-12T10:16:48.489120900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:48.490149500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:16:48.581907200+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:16:48.582870500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:48.583867400+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:16:48.584864800+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:16:48.584864800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:48.595836300+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:16:48.686646800+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:16:48.687625+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:48.823227600+08:00 - 交换链数量:3
+2020-02-12T10:16:48.908000700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T10:16:49.020699500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T10:16:49.145434200+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T10:16:54.019432900+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:54.020430400+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:54.021427800+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:16:54.022425+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:54.023421800+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:54.023421800+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:16:54.024419200+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:54.024419200+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:54.024419200+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T10:16:54.026414200+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:54.026414200+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:54.026414200+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T10:16:54.027411300+08:00 - debug_callback message_severity ERROR
+2020-02-12T10:16:54.027411300+08:00 - debug_callback message_types VALIDATION
+2020-02-12T10:16:54.027411300+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T11:31:27.332249100+08:00 - 参数列表:["E:\\project\\vulkan-tutorial-rust-ash\\target\\debug\\vulkan_tutorial_rust.exe", "16", "--features=debug"]
+2020-02-12T11:31:27.413048900+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-12T11:31:27.414031300+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-12T11:31:27.417025800+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-12T11:31:27.630450400+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-12T11:31:27.630450400+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-12T11:31:27.634441600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T11:31:27.635472400+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T11:31:27.635472400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T11:31:27.635472400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T11:31:27.636470500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T11:31:27.636470500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T11:31:27.636470500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T11:40:42.630146900+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-12T11:40:42.685665600+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-12T11:40:42.853218500+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-12T11:40:42.854214200+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-12T11:40:42.854214200+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-12T11:40:43.024756+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-12T11:40:43.028780600+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-12T11:40:43.032735300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T11:40:43.148425700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T11:40:43.264116300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T11:40:43.436654400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T11:40:43.437652800+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T11:40:43.438649800+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T11:40:43.438649800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T11:40:43.450617300+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T11:40:43.558329400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T11:40:43.643102800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T11:40:43.858034700+08:00 - 交换链数量:3
+2020-02-12T11:40:43.910931800+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-12T11:40:44.011662600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-12T11:40:44.012658700+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-12T11:40:44.020637700+08:00 - debug_callback message_severity ERROR
+2020-02-12T11:40:44.021634800+08:00 - debug_callback message_types VALIDATION
+2020-02-12T11:40:44.021634800+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T11:40:44.022632500+08:00 - debug_callback message_severity ERROR
+2020-02-12T11:40:44.022632500+08:00 - debug_callback message_types VALIDATION
+2020-02-12T11:40:44.022632500+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T11:40:44.023629300+08:00 - debug_callback message_severity ERROR
+2020-02-12T11:40:44.023629300+08:00 - debug_callback message_types VALIDATION
+2020-02-12T11:40:44.023629300+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-12T11:40:44.025624100+08:00 - debug_callback message_severity ERROR
+2020-02-12T11:40:44.025624100+08:00 - debug_callback message_types VALIDATION
+2020-02-12T11:40:44.025624100+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-12T11:40:44.143003200+08:00 - debug_callback message_severity ERROR
+2020-02-12T11:40:44.352948+08:00 - debug_callback message_types VALIDATION
+2020-02-12T11:40:44.506068800+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T14:52:33.303655700+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T14:52:33.346538300+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T14:52:33.349493800+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T14:52:33.352521600+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T14:52:33.353484900+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T14:52:33.532005900+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T14:52:33.532005900+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T14:52:33.533003100+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:52:33.533003100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T14:52:33.534000900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T14:52:33.534000900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:52:33.534999100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T14:52:33.535995500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T14:52:33.535995500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:52:33.544971700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T14:52:33.544971700+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T14:52:33.544971700+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:52:33.609800100+08:00 - 交换链数量:3
+2020-02-13T14:52:33.665650100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T14:52:33.736460400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T14:52:33.737457+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:52:39.440198900+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:52:39.440198900+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:52:39.441191700+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T14:52:39.442189+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:52:39.442189+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:52:39.443186600+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T14:52:39.443186600+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:52:39.444183700+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:52:39.444183700+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T14:52:39.447175300+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:52:39.447175300+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:52:39.447175300+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T14:52:39.448172900+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:52:39.448172900+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:52:39.449170900+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T14:59:24.747046100+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T14:59:24.791926100+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T14:59:24.911605800+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T14:59:24.912603100+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T14:59:24.912603100+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T14:59:25.248704600+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T14:59:25.248704600+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T14:59:25.248704600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:59:25.249702200+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T14:59:25.250699500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T14:59:25.250699500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:59:25.251696600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T14:59:25.253691300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T14:59:25.253691300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:59:25.268651200+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T14:59:25.315526900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T14:59:25.316524900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:59:25.420246300+08:00 - 交换链数量:3
+2020-02-13T14:59:25.432214600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T14:59:25.471110+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T14:59:25.471110+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T14:59:25.645681100+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:59:25.645681100+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:59:25.646678700+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T14:59:25.829765500+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:59:25.898666600+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:59:25.901659300+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T14:59:25.902657200+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:59:25.902657200+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:59:25.903654200+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T14:59:26.148971800+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:59:26.151963900+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:59:26.159980600+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T14:59:26.162973900+08:00 - debug_callback message_severity ERROR
+2020-02-13T14:59:26.163970200+08:00 - debug_callback message_types VALIDATION
+2020-02-13T14:59:26.226837200+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T15:35:43.519095300+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T15:35:43.638777800+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T15:35:44.070646600+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T15:35:44.070646600+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T15:35:44.071642700+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T15:35:44.232212800+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T15:35:44.247184600+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T15:35:44.248170400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:35:44.249167700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:35:44.249167700+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:35:44.250165100+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:35:44.250165100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:35:44.251177800+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:35:44.252161500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:35:44.264128900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:35:44.445643300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:35:44.446640800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:35:44.548368400+08:00 - 交换链数量:3
+2020-02-13T15:35:44.671042500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:35:44.825627200+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:35:44.826625400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:35:49.511387+08:00 - clean_up
+2020-02-13T15:44:07.096744500+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T15:44:07.234883300+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T15:44:08.125011800+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T15:44:08.295556500+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T15:44:08.302586300+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T15:44:08.659869800+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T15:44:08.709737+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T15:44:08.709737+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:44:08.710733700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:44:08.711738900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:44:08.712728500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:44:08.713739500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:44:08.713739500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:44:08.715720600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:44:08.727687600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:44:08.895804700+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:44:08.895804700+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:44:08.967122+08:00 - 交换链数量:3
+2020-02-13T15:44:09.085843200+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:44:09.233410400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:44:09.234407900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:44:13.152387+08:00 - clean_up
+2020-02-13T15:46:34.335549700+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T15:46:34.501955700+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T15:46:34.768276700+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T15:46:34.768276700+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T15:46:34.769274200+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T15:46:34.928863100+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T15:46:34.932882500+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T15:46:35.205176400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:46:35.488387400+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:46:35.711791100+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:46:35.721790900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:46:35.724755700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:46:36.019966500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:46:36.218436300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:46:36.232398900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:46:36.389193800+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:46:36.389193800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:46:36.598267400+08:00 - 交换链数量:3
+2020-02-13T15:46:36.751857600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T15:46:36.947578900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T15:46:36.947578900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T15:46:38.848939500+08:00 - debug_callback message_severity ERROR
+2020-02-13T15:46:38.849974200+08:00 - debug_callback message_types VALIDATION
+2020-02-13T15:46:38.850934100+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T15:46:39.352593600+08:00 - debug_callback message_severity ERROR
+2020-02-13T15:46:39.574082300+08:00 - debug_callback message_types VALIDATION
+2020-02-13T15:46:39.575081100+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T15:46:39.576079900+08:00 - debug_callback message_severity ERROR
+2020-02-13T15:46:39.577076200+08:00 - debug_callback message_types VALIDATION
+2020-02-13T15:46:39.577594200+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T15:46:39.582090600+08:00 - debug_callback message_severity ERROR
+2020-02-13T15:46:39.582090600+08:00 - debug_callback message_types VALIDATION
+2020-02-13T15:46:39.583087800+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T15:46:39.583087800+08:00 - debug_callback message_severity ERROR
+2020-02-13T15:46:39.584085300+08:00 - debug_callback message_types VALIDATION
+2020-02-13T15:46:39.584085300+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T20:00:13.187419+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T20:00:13.315077900+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T20:00:13.751910900+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T20:00:14.006231400+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T20:00:14.246589400+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T20:00:14.417131700+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T20:00:14.459020+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T20:00:14.459020+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:00:14.460017400+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:00:14.460017400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:00:14.461014300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:00:14.461014300+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:00:14.461014300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:00:14.462011700+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:00:14.471985200+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:00:14.471985200+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:00:14.472982600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:00:14.707357400+08:00 - 交换链数量:3
+2020-02-13T20:00:14.862940500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:00:15.023512300+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:00:15.024517800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:00:21.618881300+08:00 - debug_callback message_severity ERROR
+2020-02-13T20:00:21.619878800+08:00 - debug_callback message_types VALIDATION
+2020-02-13T20:00:21.619878800+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T20:00:21.830316700+08:00 - debug_callback message_severity ERROR
+2020-02-13T20:00:22.166417200+08:00 - debug_callback message_types VALIDATION
+2020-02-13T20:00:22.470605500+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T20:00:22.520469800+08:00 - debug_callback message_severity ERROR
+2020-02-13T20:00:22.521467100+08:00 - debug_callback message_types VALIDATION
+2020-02-13T20:00:22.521467100+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 2 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T20:00:22.524458900+08:00 - debug_callback message_severity ERROR
+2020-02-13T20:00:22.524458900+08:00 - debug_callback message_types VALIDATION
+2020-02-13T20:00:22.525456800+08:00 - debug_callback : "vkAcquireNextImageKHR: Semaphore must not be currently signaled or in a wait state. The Vulkan spec states: If semaphore is not VK_NULL_HANDLE it must be unsignaled (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-semaphore-01286)"
+2020-02-13T20:00:22.895470100+08:00 - debug_callback message_severity ERROR
+2020-02-13T20:00:22.896466700+08:00 - debug_callback message_types VALIDATION
+2020-02-13T20:00:22.897462600+08:00 - debug_callback : "vkAcquireNextImageKHR: Application has already previously acquired 3 images from swapchain. Only 2 are available to be acquired using a timeout of UINT64_MAX (given the swapchain has 3, and VkSurfaceCapabilitiesKHR::minImageCount is 2). The Vulkan spec states: If the number of currently acquired images is greater than the difference between the number of images in swapchain and the value of VkSurfaceCapabilitiesKHR::minImageCount as returned by a call to vkGetPhysicalDeviceSurfaceCapabilities2KHR with the surface used to create swapchain, timeout must not be UINT64_MAX (https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VUID-vkAcquireNextImageKHR-swapchain-01802)"
+2020-02-13T20:39:30.591171800+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T20:39:30.706896300+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T20:39:30.847488400+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T20:39:30.847488400+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T20:39:30.848485300+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T20:39:31.005066300+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T20:39:31.022021900+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T20:39:31.030997300+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:39:31.320223600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:39:31.559585600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:39:31.740100600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:39:31.752111500+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:39:31.756058600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:39:32.105125600+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:39:32.440305100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:39:32.627730900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:39:32.628726200+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:39:32.707514600+08:00 - 交换链数量:3
+2020-02-13T20:39:32.821213800+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:39:33.047607400+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:39:33.108481800+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:39:39.217404900+08:00 - clean_up
+2020-02-13T20:40:22.249291900+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T20:40:22.401844700+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T20:40:22.621294400+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T20:40:22.876577100+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T20:40:23.282525900+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T20:40:23.756224100+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T20:40:23.902833500+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T20:40:24.185079200+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:40:24.362606700+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:40:24.603027700+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:40:24.775502700+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:40:24.812401300+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:40:24.813430100+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:40:24.813430100+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:40:24.829385+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:40:25.028890100+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:40:25.277158900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:40:25.442716+08:00 - 交换链数量:3
+2020-02-13T20:40:25.594313900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:40:25.673146900+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:40:25.674141900+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:40:47.133089+08:00 - clean_up
+2020-02-13T20:43:31.381016300+08:00 - 参数列表:["target\\debug\\vulkan_tutorial_rust.exe", "rendering_and_presentation"]
+2020-02-13T20:43:31.575461700+08:00 - layer_properties[LayerProperties { layer_name: "VK_LAYER_NV_optimus", spec_version: 4198470, implementation_version: 1, description: "NVIDIA Optimus layer" }, LayerProperties { layer_name: "VK_LAYER_RENDERDOC_Capture", spec_version: 4198473, implementation_version: 1, description: "Debugging capture layer for RenderDoc" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_overlay", spec_version: 4198473, implementation_version: 1, description: "Steam Overlay Layer" }, LayerProperties { layer_name: "VK_LAYER_VALVE_steam_fossilize", spec_version: 4198473, implementation_version: 1, description: "Steam Pipeline Caching Layer" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_EOS_Overlay", spec_version: 4198473, implementation_version: 1, description: "Vulkan overlay layer for Epic Online Services" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_api_dump", spec_version: 4198530, implementation_version: 2, description: "LunarG API dump layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_device_simulation", spec_version: 4198530, implementation_version: 1, description: "LunarG device simulation layer" }, LayerProperties { layer_name: "VK_LAYER_KHRONOS_validation", spec_version: 4198530, implementation_version: 1, description: "Khronos Validation Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_monitor", spec_version: 4198530, implementation_version: 1, description: "Execution Monitoring Layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_screenshot", spec_version: 4198530, implementation_version: 1, description: "LunarG image capture layer" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_standard_validation", spec_version: 4198530, implementation_version: 1, description: "LunarG Standard Validation" }, LayerProperties { layer_name: "VK_LAYER_LUNARG_vktrace", spec_version: 4198530, implementation_version: 1, description: "Vktrace tracing library" }]
+2020-02-13T20:43:31.830800200+08:00 - 当前支持的VULKAN version_major是:1
+2020-02-13T20:43:31.830800200+08:00 - 当前支持的VULKAN version_minor是:1
+2020-02-13T20:43:31.831797600+08:00 - 当前支持的VULKAN version_patch是:130
+2020-02-13T20:43:31.988419200+08:00 - 物理设备名称: "GeForce GTX 1060"
+2020-02-13T20:43:32.076157200+08:00 - 物理设备类型: DISCRETE_GPU
+2020-02-13T20:43:32.201809400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:43:32.234721200+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:43:32.235718500+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:43:32.235718500+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:43:32.236716900+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:43:32.337467600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:43:32.512977400+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:43:32.523982600+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:43:32.601740600+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:43:32.685516+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:43:32.868028100+08:00 - 交换链数量:3
+2020-02-13T20:43:32.924877100+08:00 - 物理设备名称: "Intel(R) UHD Graphics 630"
+2020-02-13T20:43:33.005659700+08:00 - 物理设备类型: INTEGRATED_GPU
+2020-02-13T20:43:33.006657+08:00 - 物理设备是否支持几何着色器: 1
+2020-02-13T20:43:38.673432800+08:00 - clean_up

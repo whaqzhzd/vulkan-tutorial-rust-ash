@@ -9,6 +9,7 @@ pub mod instance;
 pub mod logical_device;
 pub mod physical_device_selection;
 pub mod render_passes;
+pub mod rendering_and_presentation;
 pub mod shader_modules;
 pub mod swap_chain;
 pub mod validation_layers;

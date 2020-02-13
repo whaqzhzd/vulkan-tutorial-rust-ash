@@ -2,7 +2,7 @@
 //!
 //! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Physical_devices_and_queue_families
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
-//! cargo run --features=debug command_buffers
+//! cargo run --features=debug rendering_and_presentation
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -60,6 +60,8 @@ const WIDTH: u32 = 800;
 /// It is better to use constants instead of hard coded width and height numbers, because we will refer to these values more than once in the future
 ///
 const HEIGHT: u32 = 600;
+
+const MAX_FRAMES_IN_FLIGHT: usize = 2;
 
 ///
 /// 支持绘图命令的队列族和支持显示的队列族可能不会重叠
@@ -217,9 +219,25 @@ struct HelloTriangleApplication {
     pub(crate) command_pool: CommandPool,
 
     ///
-    ///
+    /// 命令缓冲
     ///
     pub(crate) command_buffers: Vec<CommandBuffer>,
+
+    ///
+    /// 我们将需要一个信号量来表示已获取图像并可以进行渲染
+    ///
+    pub(crate) image_available_semaphores: Vec<Semaphore>,
+
+    ///
+    /// 另一个信号量则表示已完成渲染并可以进行呈现
+    ///
+    pub(crate) render_finished_semaphores: Vec<Semaphore>,
+
+    pub(crate) inflight_fences: Vec<Fence>,
+
+    pub(crate) images_inflight: Vec<Fence>,
+
+    pub(crate) current_frame: i32,
 }
 
 unsafe extern "system" fn debug_callback(
@@ -313,6 +331,7 @@ impl HelloTriangleApplication {
         self.create_framebuffers();
         self.create_command_pool();
         self.create_command_buffers();
+        self.create_sync_objects();
     }
 
     ///
@@ -345,7 +364,97 @@ impl HelloTriangleApplication {
         });
     }
 
-    fn draw_frame(&mut self) {}
+    ///
+    /// 该drawFrame函数将执行以下操作：
+    /// 从交换链获取图像
+    /// 以该图像作为附件在帧缓冲区中执行命令缓冲区
+    /// 将图像返回交换链进行演示
+    /// 这些事件中的每一个都使用单个函数调用设置为运动中的，但是它们是异步执行的。函数调用将在操作实际完成之前返回，并且执行顺序也未定义。不幸的是，因为每个操作都取决于上一个操作。
+    ///
+    /// 有两种同步交换链事件的方式：阑珊和信号量
+    ///
+    fn draw_frame(&mut self) {
+        unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .wait_for_fences(
+                    &[self.inflight_fences[self.current_frame as usize]],
+                    true,
+                    u64::max_value(),
+                )
+                .expect("wait_for_fences error");
+
+            let image_index = self
+                .swap_chain_loader
+                .as_ref()
+                .unwrap()
+                .acquire_next_image(
+                    self.swap_chain,
+                    u64::max_value(),
+                    self.image_available_semaphores[self.current_frame as usize],
+                    Fence::null(),
+                )
+                .expect("acquire_next_image error")
+                .0;
+
+            if self.images_inflight[image_index as usize] != Fence::null() {
+                self.device
+                    .as_ref()
+                    .unwrap()
+                    .wait_for_fences(
+                        &[self.images_inflight[image_index as usize]],
+                        true,
+                        u64::max_value(),
+                    )
+                    .expect("wait_for_fences2 error");
+            }
+
+            self.images_inflight[image_index as usize] =
+                self.inflight_fences[self.current_frame as usize];
+
+            let wait_semaphores = [self.image_available_semaphores[self.current_frame as usize]];
+            let single_semaphores = [self.render_finished_semaphores[self.current_frame as usize]];
+            let wait_stages = [PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT];
+            let submit_info = SubmitInfo::builder()
+                .wait_semaphores(&wait_semaphores)
+                .command_buffers(&[self.command_buffers[image_index as usize]])
+                .wait_dst_stage_mask(&wait_stages)
+                .signal_semaphores(&single_semaphores)
+                .build();
+
+            self.device
+                .as_ref()
+                .unwrap()
+                .reset_fences(&[self.inflight_fences[self.current_frame as usize]])
+                .expect("reset_fences error");
+
+            self.device
+                .as_ref()
+                .unwrap()
+                .queue_submit(
+                    self.graphics_queue,
+                    &[submit_info],
+                    self.inflight_fences[self.current_frame as usize],
+                )
+                .expect("queue_submit error");
+
+            let swap_chains = [self.swap_chain];
+            let present_info = PresentInfoKHR::builder()
+                .wait_semaphores(&single_semaphores)
+                .swapchains(&swap_chains)
+                .image_indices(&[image_index])
+                .build();
+
+            self.swap_chain_loader
+                .as_ref()
+                .unwrap()
+                .queue_present(self.present_queue, &present_info)
+                .expect("queue_present error");
+
+            self.current_frame = (self.current_frame + 1) % MAX_FRAMES_IN_FLIGHT as i32;
+        }
+    }
 
     ///
     /// 创建vulkan实例
@@ -823,10 +932,20 @@ impl HelloTriangleApplication {
             .color_attachments(&[color_attachment_ref])
             .build();
 
+        let mut dependency = SubpassDependency::default();
+        dependency.src_subpass = SUBPASS_EXTERNAL;
+        dependency.dst_subpass = 0;
+        dependency.src_stage_mask = PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT;
+        dependency.src_access_mask = AccessFlags::default();
+        dependency.dst_stage_mask = PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT;
+        dependency.dst_access_mask =
+            AccessFlags::COLOR_ATTACHMENT_READ | AccessFlags::COLOR_ATTACHMENT_WRITE;
+
         //渲染通道
         let render_pass_info = RenderPassCreateInfo::builder()
             .attachments(&[color_attachment])
             .subpasses(&[sub_pass])
+            .dependencies(&[dependency])
             .build();
 
         self.render_pass = unsafe {
@@ -1163,6 +1282,53 @@ impl HelloTriangleApplication {
     }
 
     ///
+    /// 创建信号量
+    ///
+    pub(crate) fn create_sync_objects(&mut self) {
+        self.image_available_semaphores = Vec::with_capacity(MAX_FRAMES_IN_FLIGHT);
+        self.render_finished_semaphores = Vec::with_capacity(MAX_FRAMES_IN_FLIGHT);
+        self.inflight_fences = Vec::with_capacity(MAX_FRAMES_IN_FLIGHT);
+
+        for _i in 0..self.swap_chain_images.len() {
+            self.images_inflight.push(Fence::null());
+        }
+
+        let semaphore_info = SemaphoreCreateInfo::builder().build();
+
+        let fence_info = FenceCreateInfo::builder()
+            .flags(FenceCreateFlags::SIGNALED)
+            .build();
+
+        unsafe {
+            for _i in 0..MAX_FRAMES_IN_FLIGHT {
+                self.image_available_semaphores.push(
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .create_semaphore(&semaphore_info, None)
+                        .expect("create_semaphore error"),
+                );
+
+                self.render_finished_semaphores.push(
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .create_semaphore(&semaphore_info, None)
+                        .expect("create_semaphore error"),
+                );
+
+                self.inflight_fences.push(
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .create_fence(&fence_info, None)
+                        .expect("create_fence error"),
+                );
+            }
+        };
+    }
+
+    ///
     /// 创建着色器模块
     ///
     pub(crate) fn create_shader_module(&self, code: &Vec<u32>) -> ShaderModule {
@@ -1432,6 +1598,23 @@ impl HelloTriangleApplication {
             }
 
             if let Some(instance) = self.instance.as_ref() {
+                for i in 0..MAX_FRAMES_IN_FLIGHT {
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .destroy_semaphore(self.image_available_semaphores[i], None);
+
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .destroy_semaphore(self.render_finished_semaphores[i], None);
+
+                    self.device
+                        .as_ref()
+                        .unwrap()
+                        .destroy_fence(self.inflight_fences[i], None);
+                }
+
                 self.device
                     .as_ref()
                     .unwrap()
