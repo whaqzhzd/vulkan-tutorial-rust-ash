@@ -1,6 +1,6 @@
 //!
 //!
-//! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Physical_devices_and_queue_families
+//! @see https://vulkan-tutorial.com/Vertex_buffers/Vertex_input_description
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
 //! cargo run --features=debug swap_chain_recreation
 //!
