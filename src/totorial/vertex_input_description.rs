@@ -2,7 +2,7 @@
 //!
 //! @see https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Physical_devices_and_queue_families
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
-//! cargo run --features=debug rendering_and_presentation
+//! cargo run --features=debug swap_chain_recreation
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -19,6 +19,7 @@ use ash::{
     vk::*,
     Entry, Instance,
 };
+use nal::{Vector2, Vector3};
 use std::{
     ffi::{c_void, CStr, CString},
     io::Cursor,
@@ -33,6 +34,80 @@ use winit::{
 
 #[cfg(target_os = "windows")]
 use ash::extensions::khr::Win32Surface;
+
+#[repr(C)]
+struct Vertex {
+    pub pos: Vector2<f32>,
+    pub color: Vector3<f32>,
+}
+
+impl Vertex {
+    //告诉Vulkan一旦将数据格式上传到GPU内存后如何将其传递给顶点着色器
+    pub fn get_binding_description() -> VertexInputBindingDescription {
+        //顶点绑定描述了整个顶点从内存中加载数据的速率。它指定数据条目之间的字节数，以及是否在每个顶点之后或在每个实例之后移至下一个数据条目。
+        let mut binding_description = VertexInputBindingDescription::default();
+        binding_description.binding = 0;
+        binding_description.stride = std::mem::size_of::<Vertex>() as u32;
+        //我们所有的每个顶点数据都包装在一个数组中，因此我们只需要一个绑定。该binding参数指定绑定数组中绑定的索引。该stride参数指定从一个条目到下一个条目的字节数，并且该inputRate参数可以具有以下值之一：
+        //VERTEX_INPUT_RATE_VERTEX：每个顶点后移至下一个数据条目
+        //VERTEX_INPUT_RATE_INSTANCE：每个实例后移至下一个数据条目
+        binding_description.input_rate = VertexInputRate::VERTEX;
+
+        binding_description
+    }
+
+    pub fn get_attribute_descriptions() -> [VertexInputAttributeDescription; 2] {
+        let mut attribute_descriptions = [
+            VertexInputAttributeDescription::default(),
+            VertexInputAttributeDescription::default(),
+        ];
+
+        //该binding参数告诉Vulkan每个顶点数据来自哪个绑定。该location参数引用location顶点着色器中输入的指令
+        //带有位置的顶点着色器中的输入0是位置，该位置具有两个32位浮点分量。
+        attribute_descriptions[0].binding = 0;
+        attribute_descriptions[0].location = 0;
+        //该format参数描述该属性的数据类型
+        //float： VK_FORMAT_R32_SFLOAT
+        //vec2： VK_FORMAT_R32G32_SFLOAT
+        //vec3： VK_FORMAT_R32G32B32_SFLOAT
+        //vec4： VK_FORMAT_R32G32B32A32_SFLOAT
+        //您应该使用颜色通道数量与着色器数据类型中的组件数量匹配的格式
+        //如果通道数少于组件数，则BGA组件将使用默认值(0, 0, 1)。颜色类型（SFLOAT，UINT，SINT）和比特宽度也应与着色器输入的类型。
+        //ivec2：VK_FORMAT_R32G32_SINT，由32位有符号整数组成的2分量向量
+        //uvec4：VK_FORMAT_R32G32B32A32_UINT，一个由32位无符号整数组成的4分量向量
+        //double：VK_FORMAT_R64_SFLOAT，双精度（64位）浮点数
+        attribute_descriptions[0].format = Format::R32G32_SFLOAT;
+        attribute_descriptions[0].offset = 0;
+
+        attribute_descriptions[1].binding = 0;
+        attribute_descriptions[1].location = 1;
+        attribute_descriptions[1].format = Format::R32G32B32_SFLOAT;
+        attribute_descriptions[1].offset = std::mem::size_of::<Vector2<f32>>() as u32;
+
+        attribute_descriptions
+    }
+}
+
+///
+/// rust不允许随意使用一个静态的结构体数据
+/// 我们通过方法获取这个数据
+///
+fn vertices() -> [Vertex; 3] {
+    [
+        Vertex {
+            pos: Vector2::new(0.0f32, -0.5f32),
+            color: Vector3::new(1.0, 0.0, 0.0),
+        },
+        Vertex {
+            pos: Vector2::new(0.5f32, 0.5f32),
+            color: Vector3::new(0.0, 1.0, 0.0),
+        },
+        Vertex {
+            pos: Vector2::new(-0.5f32, 0.5f32),
+            color: Vector3::new(0.0, 0.0, 1.0),
+        },
+    ]
+}
 
 ///
 /// VK_LAYER_KHRONOS_validation 是标准验证的绑定层
@@ -347,6 +422,72 @@ impl HelloTriangleApplication {
     }
 
     ///
+    /// 为依赖交换链或窗口大小的对象创建一个新的recreateSwapChain调用函数createSwapChain以及所有创建函数。
+    ///
+    pub(crate) fn recreate_swap_chain(&mut self) {
+        //我们之所以称之为vkDeviceWaitIdle，是因为与上一章一样，我们不应该接触可能仍在使用的资源
+        unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .device_wait_idle()
+                .expect("device_wait_idle error");
+        }
+
+        //显然，我们要做的第一件事是重新创建交换链本身。需要重新创建图像视图，因为它们直接基于交换链图像。需要重新创建渲染通道，因为它取决于交换链图像的格式。交换链图像格式在诸如窗口调整大小之类的操作期间很少发生更改，但仍应处理。在图形管道创建期间指定了视口和剪刀矩形的大小，因此也需要重建管道。通过为视口和剪刀矩形使用动态状态，可以避免这种情况。最后，帧缓冲区和命令缓冲区也直接取决于交换链映像。
+    }
+
+    ///
+    /// 为了确保在重新创建它们之前清除这些对象的旧版本，我们应该将一些清除代码移到一个单独的函数中，可以从该recreateSwapChain函数调用该函数。让我们称之为 cleanupSwapChain
+    ///
+    /// 我们将将交换链刷新中重新创建的所有对象的清除代码从cleanup移至cleanupSwapChain：
+    ///
+    pub(crate) fn cleanup_swap_chain(&mut self) {
+        unsafe {
+            for (_i, &framebuffer) in self.swap_chain_framebuffers.iter().enumerate() {
+                self.device
+                    .as_ref()
+                    .unwrap()
+                    .destroy_framebuffer(framebuffer, None);
+            }
+
+            //我们可以从头开始重新创建命令池，但这很浪费。相反，我选择使用该vkFreeCommandBuffers函数清理现有的命令缓冲区 。这样
+            //我们可以重用现有池来分配新的命令缓冲区。
+            self.device
+                .as_ref()
+                .unwrap()
+                .free_command_buffers(self.command_pool, &self.command_buffers);
+
+            self.device
+                .as_ref()
+                .unwrap()
+                .destroy_pipeline(self.graphics_pipeline, None);
+
+            self.device
+                .as_ref()
+                .unwrap()
+                .destroy_pipeline_layout(self.pipeline_layout, None);
+
+            self.device
+                .as_ref()
+                .unwrap()
+                .destroy_render_pass(self.render_pass, None);
+
+            for &image_view in self.swap_chain_image_views.iter() {
+                self.device
+                    .as_ref()
+                    .unwrap()
+                    .destroy_image_view(image_view, None);
+            }
+
+            self.swap_chain_loader
+                .as_ref()
+                .unwrap()
+                .destroy_swapchain(self.swap_chain, None);
+        }
+    }
+
+    ///
     /// 主循环
     /// Main loop
     ///
@@ -358,7 +499,15 @@ impl HelloTriangleApplication {
             *control_flow = ControlFlow::Wait;
 
             match event {
-                Event::LoopDestroyed => return,
+                Event::LoopDestroyed => {
+                    unsafe {
+                        self.device
+                            .as_ref()
+                            .unwrap()
+                            .device_wait_idle()
+                            .expect("Failed to wait device idle!")
+                    };
+                }
                 Event::WindowEvent { event, .. } => match event {
                     WindowEvent::CloseRequested => {
                         *control_flow = ControlFlow::Exit;
@@ -404,18 +553,31 @@ impl HelloTriangleApplication {
                 )
                 .expect("wait_for_fences error");
 
-            let image_index = self
-                .swap_chain_loader
-                .as_ref()
-                .unwrap()
-                .acquire_next_image(
-                    self.swap_chain,
-                    u64::max_value(),
-                    self.image_available_semaphores[self.current_frame as usize],
-                    Fence::null(),
-                )
-                .expect("acquire_next_image error")
-                .0;
+            let acquire_next_image = self.swap_chain_loader.as_ref().unwrap().acquire_next_image(
+                self.swap_chain,
+                u64::max_value(),
+                self.image_available_semaphores[self.current_frame as usize],
+                Fence::null(),
+            );
+
+            if let Err(err) = acquire_next_image {
+                //ERROR_OUT_OF_DATE_KHR：交换链变得与曲面不兼容，不能再用于渲染。通常在调整窗口大小之后发生。
+                if err == Result::ERROR_OUT_OF_DATE_KHR {
+                    //如果尝试获取图像时交换链已过期，则无法再显示该图像。因此，我们应该立即重新创建交换链，并在下一个drawFrame调用中重试。
+                    self.recreate_swap_chain();
+                    return;
+                }
+
+                panic!("error is:{:?}", err);
+            }
+
+            let acquire_next_image = acquire_next_image.expect("error acquire_next_image 1");
+            let image_index = acquire_next_image.0;
+
+            if acquire_next_image.1 {
+                //SUBOPTIMAL_KHR：交换链仍可用于成功显示在表面上，但是表面特性不再完全匹配。
+                info!("SUBOPTIMAL_KHR：交换链仍可用于成功显示在表面上，但是表面特性不再完全匹配。");
+            }
 
             //我们将修改drawFrame以等待正在使用刚刚为新帧分配的图像的任何先前帧
             //检查前一帧是否正在使用此图像（即，有其栏珊等待）
@@ -470,11 +632,19 @@ impl HelloTriangleApplication {
                 .image_indices(&[image_index])
                 .build();
 
-            self.swap_chain_loader
+            let result = self
+                .swap_chain_loader
                 .as_ref()
                 .unwrap()
-                .queue_present(self.present_queue, &present_info)
-                .expect("queue_present error");
+                .queue_present(self.present_queue, &present_info);
+
+            if let Err(err) = result {
+                if err == Result::ERROR_OUT_OF_DATE_KHR || err == Result::SUBOPTIMAL_KHR {
+                    self.recreate_swap_chain();
+                } else {
+                    panic!("failed to present swap chain image!");
+                }
+            }
 
             //如果使用vkQueueWaitIdle
             //我们可能无法以这种方式最佳地使用GPU，因为整个图形流水线现在一次只能使用一帧。当前帧已经经过的阶段是空闲的，可能已经用于下一帧。
@@ -1015,7 +1185,15 @@ impl HelloTriangleApplication {
         let shader_stages = vec![vert_shader_stage_info, frag_shader_stage_info];
 
         //顶点输入
-        let vertex_input_info = PipelineVertexInputStateCreateInfo::default();
+        let mut vertex_input_info = PipelineVertexInputStateCreateInfo::default();
+
+        let binding_description = Vertex::get_binding_description();
+        let attribute_descriptions = Vertex::get_attribute_descriptions();
+        vertex_input_info.vertex_binding_description_count = 1;
+        vertex_input_info.vertex_attribute_description_count = attribute_descriptions.len() as u32;
+        vertex_input_info.p_vertex_binding_descriptions = &binding_description;
+        vertex_input_info.p_vertex_attribute_descriptions = attribute_descriptions.as_ptr();
+
         //输入组件
         let input_assembly = PipelineInputAssemblyStateCreateInfo::builder()
             // VK_PRIMITIVE_TOPOLOGY_POINT_LIST 顶点
@@ -1629,6 +1807,8 @@ impl HelloTriangleApplication {
                 }
             }
 
+            self.cleanup_swap_chain();
+
             if let Some(instance) = self.instance.as_ref() {
                 for i in 0..MAX_FRAMES_IN_FLIGHT {
                     self.device
@@ -1652,49 +1832,15 @@ impl HelloTriangleApplication {
                     .unwrap()
                     .destroy_command_pool(self.command_pool, None);
 
-                for (_i, &framebuffer) in self.swap_chain_framebuffers.iter().enumerate() {
-                    self.device
-                        .as_ref()
-                        .unwrap()
-                        .destroy_framebuffer(framebuffer, None);
+                if let Some(device) = self.device.as_ref() {
+                    device.destroy_device(None);
                 }
-
-                self.device
-                    .as_ref()
-                    .unwrap()
-                    .destroy_pipeline(self.graphics_pipeline, None);
-
-                self.device
-                    .as_ref()
-                    .unwrap()
-                    .destroy_pipeline_layout(self.pipeline_layout, None);
-
-                self.device
-                    .as_ref()
-                    .unwrap()
-                    .destroy_render_pass(self.render_pass, None);
-
-                for &image_view in self.swap_chain_image_views.iter() {
-                    self.device
-                        .as_ref()
-                        .unwrap()
-                        .destroy_image_view(image_view, None);
-                }
-
-                self.swap_chain_loader
-                    .as_ref()
-                    .unwrap()
-                    .destroy_swapchain(self.swap_chain, None);
 
                 if let Some(surface_khr) = self.surface {
                     self.surface_loader
                         .as_ref()
                         .unwrap()
                         .destroy_surface(surface_khr, None);
-                }
-
-                if let Some(device) = self.device.as_ref() {
-                    device.destroy_device(None);
                 }
 
                 instance.destroy_instance(None);
@@ -1820,6 +1966,8 @@ impl Drop for HelloTriangleApplication {
 /// 管线布局：着色器引用的统一值和推动值，可以在绘制时进行更新
 /// 渲染阶段：管道阶段引用的附件及其用法
 ///
+///
+/// 我们已经成功地为应用程序绘制了一个三角形，但是在某些情况下，它还不能正确处理。窗户表面可能会发生变化，从而使交换链不再与其兼容。可能导致这种情况发生的原因之一是窗口大小的变化。我们必须捕获这些事件并重新创建交换链。
 ///
 pub fn main() {
     let events = EventLoop::new();

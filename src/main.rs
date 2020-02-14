@@ -2,6 +2,7 @@ mod totorial;
 mod util;
 
 extern crate ash;
+extern crate nalgebra as nal;
 extern crate winit;
 
 #[macro_use]
@@ -37,6 +38,8 @@ fn main() {
         "framebuffers"              | "13" => totorial::framebuffers::main(),
         "command_buffers"           | "14" => totorial::command_buffers::main(),
         "rendering_and_presentation"| "16" => totorial::rendering_and_presentation::main(),
+        "swap_chain_recreation"     | "17" => totorial::swap_chain_recreation::main(),
+        "vertex_input_description"  | "18" => totorial::vertex_input_description::main(),
         _ => {
             todo!();
         }

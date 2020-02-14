@@ -12,5 +12,7 @@ pub mod render_passes;
 pub mod rendering_and_presentation;
 pub mod shader_modules;
 pub mod swap_chain;
+pub mod swap_chain_recreation;
 pub mod validation_layers;
+pub mod vertex_input_description;
 pub mod window_surface;
