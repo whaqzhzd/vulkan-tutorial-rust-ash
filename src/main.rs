@@ -40,6 +40,7 @@ fn main() {
         "rendering_and_presentation"| "16" => totorial::rendering_and_presentation::main(),
         "swap_chain_recreation"     | "17" => totorial::swap_chain_recreation::main(),
         "vertex_input_description"  | "18" => totorial::vertex_input_description::main(),
+        "vertex_buffer_creation"    | "19" => totorial::vertex_buffer_creation::main(),
         _ => {
             todo!();
         }

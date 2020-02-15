@@ -1,8 +1,8 @@
 //!
 //!
-//! @see https://vulkan-tutorial.com/Vertex_buffers/Vertex_input_description
+//! @see https://vulkan-tutorial.com/Vertex_buffers/Vertex_buffer_creation
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
-//! cargo run --features=debug vertex_input_description
+//! cargo run --features=debug vertex_buffer_creation
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -92,22 +92,28 @@ impl Vertex {
 /// rust不允许随意使用一个静态的结构体数据
 /// 我们通过方法获取这个数据
 ///
-fn _vertices() -> [Vertex; 3] {
-    [
-        Vertex {
-            pos: Vector2::new(0.0f32, -0.5f32),
-            color: Vector3::new(1.0, 0.0, 0.0),
-        },
-        Vertex {
-            pos: Vector2::new(0.5f32, 0.5f32),
-            color: Vector3::new(0.0, 1.0, 0.0),
-        },
-        Vertex {
-            pos: Vector2::new(-0.5f32, 0.5f32),
-            color: Vector3::new(0.0, 0.0, 1.0),
-        },
-    ]
+fn generator_vertices() {
+    unsafe {
+        START.call_once(|| {
+            VERTICES = std::mem::transmute(Box::new(vec![
+                Vertex {
+                    pos: Vector2::new(0.0f32, -0.5f32),
+                    color: Vector3::new(1.0, 1.0, 1.0),
+                },
+                Vertex {
+                    pos: Vector2::new(0.5f32, 0.5f32),
+                    color: Vector3::new(0.0, 1.0, 0.0),
+                },
+                Vertex {
+                    pos: Vector2::new(-0.5f32, 0.5f32),
+                    color: Vector3::new(0.0, 0.0, 1.0),
+                },
+            ]));
+        });
+    }
 }
+static mut VERTICES: *mut Vec<Vertex> = std::ptr::null_mut::<Vec<Vertex>>();
+static START: std::sync::Once = std::sync::Once::new();
 
 ///
 /// VK_LAYER_KHRONOS_validation 是标准验证的绑定层
@@ -314,6 +320,9 @@ struct HelloTriangleApplication {
     ///
     pub(crate) render_finished_semaphores: Vec<Semaphore>,
 
+    ///
+    ///
+    ///
     pub(crate) inflight_fences: Vec<Fence>,
 
     ///
@@ -325,6 +334,16 @@ struct HelloTriangleApplication {
     /// 要每次都使用正确的一组信号量，我们需要跟踪当前帧。我们将为此使用帧索引
     ///
     pub(crate) current_frame: i32,
+
+    ///
+    /// 顶点缓冲区句柄
+    ///
+    pub(crate) vertex_buffer: Buffer,
+
+    ///
+    /// 创建一个类成员以将句柄存储到内存中并使用进行分配
+    ///
+    pub(crate) vertex_buffer_memory: DeviceMemory,
 }
 
 unsafe extern "system" fn debug_callback(
@@ -417,6 +436,7 @@ impl HelloTriangleApplication {
         self.create_graphics_pipeline();
         self.create_framebuffers();
         self.create_command_pool();
+        self.create_vertex_buffer();
         self.create_command_buffers();
         self.create_sync_objects();
     }
@@ -1416,6 +1436,142 @@ impl HelloTriangleApplication {
         };
     }
 
+    ///
+    /// 缓冲区创建
+    ///
+    pub(crate) fn create_vertex_buffer(&mut self) {
+        let vertices = unsafe { &*VERTICES };
+        let buffer_info = BufferCreateInfo::builder()
+            //它指定缓冲区的大小（以字节为单位）
+            .size(std::mem::size_of_val(&vertices[0]) as u64 * 3)
+            //它指示将缓冲区中的数据用于何种目的，可以使用按位或指定多个目的。
+            .usage(BufferUsageFlags::VERTEX_BUFFER)
+            //缓冲区也可以由特定的队列系列拥有，或同时在多个队列之间共享。该缓冲区将仅在图形队列中使用，因此我们可以坚持互斥访问。
+            .sharing_mode(SharingMode::EXCLUSIVE)
+            .build();
+
+        self.vertex_buffer = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .create_buffer(&buffer_info, None)
+                .expect("create_buffer error")
+        };
+
+        //内存需求
+        //缓冲区已创建，但实际上尚未分配任何内存。为缓冲区分配内存
+        //该VkMemoryRequirements结构具有三个字段：
+        //size：所需的内存量（以字节为单位）可能与有所不同 bufferInfo.size。
+        //alignment：缓冲区从内存分配的区域开始的偏移量（以字节为单位）取决于bufferInfo.usage和bufferInfo.flags。
+        //memoryTypeBits：适用于缓冲区的内存类型的位字段。
+        //
+        let mem_requirements: MemoryRequirements = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .get_buffer_memory_requirements(self.vertex_buffer)
+        };
+
+        //内存分配
+        let alloc_info = MemoryAllocateInfo::builder()
+            .allocation_size(mem_requirements.size)
+            .memory_type_index(self.find_memory_type(
+                mem_requirements.memory_type_bits,
+                //不幸的是，例如由于缓存，驱动程序可能不会立即将数据复制到缓冲存储器中。也有可能在映射的内存中尚不可见对缓冲区的写入。有两种方法可以解决该问题：
+                //使用主机一致的内存堆，用 VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+                //打电话vkFlushMappedMemoryRanges到写入内存映射，并调用后vkInvalidateMappedMemoryRanges从映射内存读取前
+
+                //我们采用第一种方法，该方法可确保映射的内存始终与分配的内存的内容匹配。请记住，与显式刷新相比，这可能会导致性能稍差，但是我们将在下一章中了解为什么这无关紧要。
+                MemoryPropertyFlags::HOST_VISIBLE | MemoryPropertyFlags::HOST_COHERENT,
+            ));
+
+        self.vertex_buffer_memory = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .allocate_memory(&alloc_info, None)
+                .expect("allocate_memory error")
+        };
+
+        //如果内存分配成功，那么我们现在可以使用将该内存与缓冲区关联
+        unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                //由于此内存是专门为此顶点缓冲区分配的，因此偏移量仅为0。如果偏移量不为零，则需要被整除memRequirements.alignment。
+                .bind_buffer_memory(self.vertex_buffer, self.vertex_buffer_memory, 0)
+                .expect("bind_buffer_memory error");
+        };
+
+        //填充顶点缓冲区
+        let data = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .map_memory(
+                    self.vertex_buffer_memory,
+                    0,
+                    buffer_info.size,
+                    MemoryMapFlags::empty(),
+                )
+                .expect("map_memory error") as *mut Vertex
+        };
+
+        //现在，您可以copy_from_nonoverlapping将顶点数据简单地映射到映射的内存，
+        unsafe {
+            data.copy_from_nonoverlapping(vertices.as_ptr(), vertices.len());
+
+            //不幸的是，例如由于缓存，驱动程序可能不会立即将数据复制到缓冲存储器中。也有可能在映射的内存中尚不可见对缓冲区的写入。有两种方法可以解决该问题：
+            //使用主机一致的内存堆，用 VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+            //打电话vkFlushMappedMemoryRanges到写入内存映射，并调用后vkInvalidateMappedMemoryRanges从映射内存读取前
+
+            //我们采用第一种方法，该方法可确保映射的内存始终与分配的内存的内容匹配。请记住，与显式刷新相比，这可能会导致性能稍差，但是我们将在下一章中了解为什么这无关紧要。
+
+            //刷新内存范围或使用相关的内存堆意味着驱动程序将意识到我们对缓冲区的写入，但是这并不意味着它们实际上在GPU上是可见的。数据传输到GPU的操作是在后台进行的，
+
+            //使用再次取消映射vkUnmapMemory
+            self.device
+                .as_ref()
+                .unwrap()
+                .unmap_memory(self.vertex_buffer_memory);
+        }
+    }
+
+    ///
+    /// 图形卡可以提供不同类型的内存以进行分配。每种类型的内存在允许的操作和性能特征方面都不同。我们需要结合缓冲区的要求和我们自己的应用程序要求来找到要使用的正确类型的内存
+    /// 该typeFilter参数将用于指定合适的存储器类型的位字段。这意味着我们可以通过简单地遍历它们并检查相应的位是否设置为来找到合适的内存类型的索引1。
+    ///
+    pub(crate) fn find_memory_type(
+        &self,
+        type_filter: u32,
+        properties: MemoryPropertyFlags,
+    ) -> u32 {
+        //我们需要使用来查询有关可用内存类型的信息
+        //结构具有两个数组memoryTypes 和memoryHeaps。内存堆是不同的内存资源，例如专用VRAM和RAM中的交换空间（当VRAM用完时）。这些堆中存在不同类型的内存。
+        //现在，我们只关心内存的类型，而不关心它来自的堆，但是您可以想象这会影响性能。
+        let mem_properties: PhysicalDeviceMemoryProperties = unsafe {
+            self.instance
+                .as_ref()
+                .unwrap()
+                .get_physical_device_memory_properties(self.physical_device.unwrap())
+        };
+
+        //首先让我们找到适合缓冲区本身的内存类型：
+        for i in 0..mem_properties.memory_type_count {
+            //我们不仅对适用于顶点缓冲区的内存类型感兴趣。我们还需要能够将顶点数据写入该内存。该memoryTypes数组由VkMemoryType指定每种类型的内存的堆和属性的结构组成。这些属性定义了内存的特殊功能，例如能够对其进行映射，以便我们可以从CPU对其进行写入。该属性用表示VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT，但我们也需要使用该VK_MEMORY_PROPERTY_HOST_COHERENT_BIT属性。我们将在映射内存时看到原因。
+            if type_filter & (1 << i) > 0
+                 //也检查此属性的支持：
+                && mem_properties.memory_types[i as usize]
+                    .property_flags
+                    .contains(properties)
+            {
+                return i;
+            }
+        }
+
+        panic!("failed to find suitable memory type!");
+    }
+
     pub(crate) fn create_command_buffers(&mut self) {
         let alloc_info = CommandBufferAllocateInfo::builder()
             .command_pool(self.command_pool)
@@ -1467,6 +1623,17 @@ impl HelloTriangleApplication {
                     command_buffer,
                     PipelineBindPoint::GRAPHICS,
                     self.graphics_pipeline,
+                );
+
+                //绑定顶点缓冲区
+                let vertex_buffers = [self.vertex_buffer];
+                let offsets = [0];
+
+                self.device.as_ref().unwrap().cmd_bind_vertex_buffers(
+                    self.command_buffers[i],
+                    0,
+                    &vertex_buffers,
+                    &offsets,
                 );
 
                 self.device
@@ -1809,6 +1976,16 @@ impl HelloTriangleApplication {
 
             self.cleanup_swap_chain();
 
+            self.device
+                .as_ref()
+                .unwrap()
+                .destroy_buffer(self.vertex_buffer, None);
+
+            self.device
+                .as_ref()
+                .unwrap()
+                .free_memory(self.vertex_buffer_memory, None);
+
             if let Some(instance) = self.instance.as_ref() {
                 for i in 0..MAX_FRAMES_IN_FLIGHT {
                     self.device
@@ -1969,10 +2146,13 @@ impl Drop for HelloTriangleApplication {
 ///
 /// 我们已经成功地为应用程序绘制了一个三角形，但是在某些情况下，它还不能正确处理。窗户表面可能会发生变化，从而使交换链不再与其兼容。可能导致这种情况发生的原因之一是窗口大小的变化。我们必须捕获这些事件并重新创建交换链。
 ///
-/// 如果运行这个程序，会抱怨没有绑定到该绑定的顶点缓冲区
-///  debug_callback : "VkPipeline 0xb5f68b000000000e[] expects that this Command Buffer\'s vertex binding Index 0 should be set via vkCmdBindVertexBuffers. This is because VkVertexInputBindingDescription struct at index 0 of pVertexBindingDescriptions has a binding value of 0."
+/// Vulkan中的缓冲区是内存区域，用于存储图形卡可以读取的任意数据。它们可以用来存储顶点数据，这将在本章中进行，但是它们也可以用于我们将在以后的章节中探讨的许多其他目的。与到目前为止我们一直在处理的Vulkan对象不同，缓冲区不会自动为其分配内存。前几章的工作表明，Vulkan API使程序员几乎可以控制所有事情，而内存管理就是其中之一。
+///
 ///
 pub fn main() {
+    // 构建顶点数据
+    generator_vertices();
+
     let events = EventLoop::new();
     let mut hello = HelloTriangleApplication::default();
     let win = hello.run(&events);

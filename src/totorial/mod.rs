@@ -14,5 +14,6 @@ pub mod shader_modules;
 pub mod swap_chain;
 pub mod swap_chain_recreation;
 pub mod validation_layers;
+pub mod vertex_buffer_creation;
 pub mod vertex_input_description;
 pub mod window_surface;
