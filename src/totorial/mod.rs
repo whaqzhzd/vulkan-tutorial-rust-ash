@@ -1,5 +1,7 @@
 pub mod base_code;
 pub mod command_buffers;
+pub mod descriptor_layout_and_buffer;
+pub mod descriptor_pool_and_sets;
 pub mod fixed_functions;
 pub mod framebuffers;
 pub mod graphics_pipeline;
