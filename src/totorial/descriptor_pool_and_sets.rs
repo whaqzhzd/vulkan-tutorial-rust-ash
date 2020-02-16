@@ -38,6 +38,7 @@ use ash::extensions::khr::Win32Surface;
 ///
 /// 统一缓冲区对象UBO
 ///
+#[repr(C)]
 struct UniformBufferObject {
     ///
     /// 模型
