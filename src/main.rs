@@ -42,6 +42,7 @@ fn main() {
         "vertex_input_description"  | "18" => totorial::vertex_input_description::main(),
         "vertex_buffer_creation"    | "19" => totorial::vertex_buffer_creation::main(),
         "staging_buffer"            | "20" => totorial::staging_buffer::main(),
+        "index_buffer"              | "21" => totorial::index_buffer::main(),
         _ => {
             todo!();
         }

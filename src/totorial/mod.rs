@@ -5,6 +5,7 @@ pub mod framebuffers;
 pub mod graphics_pipeline;
 pub mod graphics_pipeline_complete;
 pub mod image_views;
+pub mod index_buffer;
 pub mod instance;
 pub mod logical_device;
 pub mod physical_device_selection;
