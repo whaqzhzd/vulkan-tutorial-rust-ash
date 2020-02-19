@@ -1850,6 +1850,7 @@ impl HelloTriangleApplication {
     pub(crate) fn create_descriptor_pool(&mut self) {
         //我们首先需要使用VkDescriptorPoolSize结构来描述我们的描述符集将包含哪些描述符类型以及其中有多少个描述符类型。
         let pool_size = DescriptorPoolSize::builder()
+            .ty(DescriptorType::UNIFORM_BUFFER)
             .descriptor_count(self.swap_chain_images.len() as u32)
             .build();
 
