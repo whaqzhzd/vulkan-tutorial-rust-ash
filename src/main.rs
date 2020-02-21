@@ -45,6 +45,7 @@ fn main() {
         "index_buffer"                 | "21" => totorial::index_buffer::main(),
         "descriptor_layout_and_buffer" | "22" => totorial::descriptor_layout_and_buffer::main(),
         "descriptor_pool_and_sets"     | "23" => totorial::descriptor_pool_and_sets::main(),
+        "images"                       | "24" => totorial::images::main(),
         _ => {
             todo!();
         }
