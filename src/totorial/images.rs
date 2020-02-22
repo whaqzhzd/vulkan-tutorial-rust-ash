@@ -2,7 +2,7 @@
 //!
 //! @see https://vulkan-tutorial.com/Vertex_buffers/Vertex_buffer_creation
 //! @see https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html#VK_EXT_debug_utils
-//! cargo run --features=debug descriptor_pool_and_sets
+//! cargo run --features=debug images
 //!
 //! 注：本教程所有的英文注释都是有google翻译而来。如有错漏,请告知我修改
 //!
@@ -10,6 +10,8 @@
 //!
 //! The MIT License (MIT)
 //!
+#[cfg(target_os = "windows")]
+use ash::extensions::khr::Win32Surface;
 use ash::{
     extensions::{
         ext::DebugUtils,
@@ -19,6 +21,7 @@ use ash::{
     vk::*,
     Entry, Instance,
 };
+use image::GenericImageView;
 use nal::{Matrix, Matrix4, Perspective3, Point3, Vector2, Vector3};
 use std::{
     ffi::{c_void, CStr, CString},
@@ -31,9 +34,6 @@ use winit::{
     event_loop::{ControlFlow, EventLoop},
     window::{Window, WindowBuilder},
 };
-
-#[cfg(target_os = "windows")]
-use ash::extensions::khr::Win32Surface;
 
 ///
 /// 统一缓冲区对象UBO
@@ -420,6 +420,16 @@ struct HelloTriangleApplication {
     /// 描述符集
     ///
     pub(crate) descriptor_sets: Vec<DescriptorSet>,
+
+    ///
+    /// 纹理图像
+    ///
+    pub(crate) texture_image: Image,
+
+    ///
+    /// 纹理图像内存
+    ///
+    pub(crate) textre_image_memory: DeviceMemory,
 }
 
 unsafe extern "system" fn debug_callback(
@@ -513,6 +523,7 @@ impl HelloTriangleApplication {
         self.create_graphics_pipeline();
         self.create_framebuffers();
         self.create_command_pool();
+        self.create_texture_image();
         self.create_vertex_buffer();
         self.create_index_buffer();
         self.create_uniform_buffers();
@@ -545,57 +556,32 @@ impl HelloTriangleApplication {
     ///
     pub(crate) fn cleanup_swap_chain(&mut self) {
         unsafe {
-            for i in 0..self.swap_chain_images.len() {
-                self.device
-                    .as_ref()
-                    .unwrap()
-                    .destroy_buffer(self.uniform_buffers[i], None);
+            let device = self.device.as_ref().unwrap();
 
-                self.device
-                    .as_ref()
-                    .unwrap()
-                    .free_memory(self.uniform_buffers_memory[i], None);
+            for i in 0..self.swap_chain_images.len() {
+                device.destroy_buffer(self.uniform_buffers[i], None);
+
+                device.free_memory(self.uniform_buffers_memory[i], None);
             }
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .destroy_descriptor_pool(self.descriptor_pool, None);
+            device.destroy_descriptor_pool(self.descriptor_pool, None);
 
             for (_i, &framebuffer) in self.swap_chain_framebuffers.iter().enumerate() {
-                self.device
-                    .as_ref()
-                    .unwrap()
-                    .destroy_framebuffer(framebuffer, None);
+                device.destroy_framebuffer(framebuffer, None);
             }
 
             //我们可以从头开始重新创建命令池，但这很浪费。相反，我选择使用该vkFreeCommandBuffers函数清理现有的命令缓冲区 。这样
             //我们可以重用现有池来分配新的命令缓冲区。
-            self.device
-                .as_ref()
-                .unwrap()
-                .free_command_buffers(self.command_pool, &self.command_buffers);
+            device.free_command_buffers(self.command_pool, &self.command_buffers);
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .destroy_pipeline(self.graphics_pipeline, None);
+            device.destroy_pipeline(self.graphics_pipeline, None);
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .destroy_pipeline_layout(self.pipeline_layout, None);
+            device.destroy_pipeline_layout(self.pipeline_layout, None);
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .destroy_render_pass(self.render_pass, None);
+            device.destroy_render_pass(self.render_pass, None);
 
             for &image_view in self.swap_chain_image_views.iter() {
-                self.device
-                    .as_ref()
-                    .unwrap()
-                    .destroy_image_view(image_view, None);
+                device.destroy_image_view(image_view, None);
             }
 
             self.swap_chain_loader
@@ -784,7 +770,7 @@ impl HelloTriangleApplication {
         );
 
         let mut proj = proj.into_inner();
-        //行了Y翻转
+        //Y翻转
         proj[(1, 1)] = proj[(1, 1)] * -1.0f32;
         let proj = Perspective3::from_matrix_unchecked(proj);
 
@@ -1635,6 +1621,262 @@ impl HelloTriangleApplication {
     }
 
     ///
+    /// 创建纹理
+    /// 在该函数中将加载图像并将其上传到Vulkan图像对象中。
+    ///
+    pub(crate) fn create_texture_image(&mut self) {
+        let img = image::open("src/textures/texture.jpg").unwrap();
+        let (tex_width, tex_height) = img.dimensions();
+        let image_size = (tex_width * tex_height * 4) as DeviceSize;
+
+        let (staging_buffer, staging_buffer_memory) = self.create_buffer(
+            image_size,
+            BufferUsageFlags::TRANSFER_SRC,
+            MemoryPropertyFlags::HOST_VISIBLE | MemoryPropertyFlags::HOST_COHERENT,
+        );
+
+        let data = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .map_memory(
+                    staging_buffer_memory,
+                    0,
+                    image_size,
+                    MemoryMapFlags::empty(),
+                )
+                .expect("map_memory error") as *mut u8
+        };
+
+        unsafe {
+            let pixels = img.to_bytes();
+            data.copy_from_nonoverlapping(pixels.as_ptr(), pixels.len());
+
+            self.device
+                .as_ref()
+                .unwrap()
+                .unmap_memory(staging_buffer_memory);
+        }
+
+        let (texture_image, texture_image_memory) = self.create_image(
+            tex_width,
+            tex_height,
+            Format::R8G8B8A8_SRGB,
+            ImageTiling::OPTIMAL,
+            ImageUsageFlags::TRANSFER_DST | ImageUsageFlags::SAMPLED,
+            MemoryPropertyFlags::DEVICE_LOCAL,
+        );
+
+        self.texture_image = texture_image;
+        self.textre_image_memory = texture_image_memory;
+
+        self.transition_image_layout(
+            self.texture_image,
+            Format::R8G8B8A8_SRGB,
+            ImageLayout::UNDEFINED,
+            ImageLayout::TRANSFER_DST_OPTIMAL,
+        );
+        self.copy_buffer_to_image(
+            staging_buffer,
+            self.texture_image,
+            tex_width as u32,
+            tex_height as u32,
+        );
+        self.transition_image_layout(
+            self.texture_image,
+            Format::R8G8B8A8_SRGB,
+            ImageLayout::TRANSFER_DST_OPTIMAL,
+            ImageLayout::SHADER_READ_ONLY_OPTIMAL,
+        );
+
+        unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .destroy_buffer(staging_buffer, None);
+            self.device
+                .as_ref()
+                .unwrap()
+                .free_memory(staging_buffer_memory, None);
+        };
+    }
+
+    fn begin_single_time_commands(&self) -> CommandBuffer {
+        let alloc_info = CommandBufferAllocateInfo::builder()
+            .level(CommandBufferLevel::PRIMARY)
+            .command_pool(self.command_pool)
+            .command_buffer_count(1)
+            .build();
+
+        let command_buffer = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .allocate_command_buffers(&alloc_info)
+                .expect("allocate_command_buffers error")[0]
+        };
+
+        //并立即开始记录命令缓冲区
+        let begin_info = CommandBufferBeginInfo::builder()
+            // 我们将只使用一次命令缓冲区，然后等待从函数返回，直到复制操作完成执行。最好告诉我们使用的意图VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT。
+            .flags(CommandBufferUsageFlags::ONE_TIME_SUBMIT)
+            .build();
+
+        unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .begin_command_buffer(command_buffer, &begin_info)
+                .expect("begin_command_buffer error")
+        };
+
+        command_buffer
+    }
+
+    fn end_single_time_commands(&mut self, command_buffer: CommandBuffer) {
+        unsafe {
+            //该命令缓冲区仅包含复制命令，因此我们可以在此之后立即停止记录。
+            self.device
+                .as_ref()
+                .unwrap()
+                .end_command_buffer(command_buffer)
+                .expect("end_command_buffer error");
+
+            let submit_info = SubmitInfo::builder()
+                .command_buffers(&[command_buffer])
+                .build();
+
+            //与绘制命令不同，这次没有任何事件需要等待。我们只想立即在缓冲区上执行传输。还有两种可能的方法来等待此传输完成。我们可以使用栅栏等待vkWaitForFences，或者只是等待传输队列变得空闲vkQueueWaitIdle。栅栏允许您同时安排多个传输并等待所有传输完成，而不必一次执行一个。这可以为程序员提供更多优化的机会。
+            self.device
+                .as_ref()
+                .unwrap()
+                .queue_submit(self.graphics_queue, &[submit_info], Fence::null())
+                .expect("queue_submit error");
+
+            self.device
+                .as_ref()
+                .unwrap()
+                .queue_wait_idle(self.graphics_queue)
+                .expect("queue_wait_idle error");
+
+            //不要忘记清理用于传输操作的命令缓冲区。
+            self.device
+                .as_ref()
+                .unwrap()
+                .free_command_buffers(self.command_pool, &[command_buffer]);
+        };
+    }
+
+    ///
+    /// 如果我们仍在使用缓冲区，那么我们现在可以编写一个函数来记录并执行vkCmdCopyBufferToImage以完成作业，但是此命令要求图像首先位于正确的布局中。创建一个新函数来处理布局转换：
+    ///
+    fn transition_image_layout(
+        &mut self,
+        image: Image,
+        _format: Format,
+        old_layout: ImageLayout,
+        new_layout: ImageLayout,
+    ) {
+        let command_buffer = self.begin_single_time_commands();
+
+        //执行布局转换的最常见方法之一是使用图像存储屏障。像这样的流水线屏障通常用于同步对资源的访问，例如确保对缓冲区的写入在从缓冲区中读取之前完成，但是它也可以用于转换图像布局并在VK_SHARING_MODE_EXCLUSIVE使用时转移队列族所有权。对于缓冲区，存在等效的缓冲区内存屏障。
+
+        let mut barrier = ImageMemoryBarrier::builder()
+            .old_layout(old_layout)
+            .new_layout(new_layout)
+            .src_queue_family_index(QUEUE_FAMILY_IGNORED)
+            .dst_queue_family_index(QUEUE_FAMILY_IGNORED)
+            .image(image)
+            .subresource_range(ImageSubresourceRange {
+                aspect_mask: ImageAspectFlags::COLOR,
+                base_mip_level: 0,
+                level_count: 1,
+                base_array_layer: 0,
+                layer_count: 1,
+            })
+            .build();
+
+        let (source_stage, destination_stage) = {
+            if old_layout == ImageLayout::UNDEFINED
+                && new_layout == ImageLayout::TRANSFER_DST_OPTIMAL
+            {
+                barrier.src_access_mask = AccessFlags::empty();
+                barrier.dst_access_mask = AccessFlags::TRANSFER_WRITE;
+
+                (
+                    PipelineStageFlags::TOP_OF_PIPE,
+                    PipelineStageFlags::TRANSFER,
+                )
+            } else if old_layout == ImageLayout::TRANSFER_DST_OPTIMAL
+                && new_layout == ImageLayout::SHADER_READ_ONLY_OPTIMAL
+            {
+                barrier.src_access_mask = AccessFlags::TRANSFER_WRITE;
+                barrier.dst_access_mask = AccessFlags::SHADER_READ;
+
+                (
+                    PipelineStageFlags::TRANSFER,
+                    PipelineStageFlags::FRAGMENT_SHADER,
+                )
+            } else {
+                panic!("unsupported layout transition!");
+            }
+        };
+
+        unsafe {
+            self.device.as_ref().unwrap().cmd_pipeline_barrier(
+                command_buffer,
+                source_stage,
+                destination_stage,
+                DependencyFlags::empty(),
+                &[],
+                &[],
+                &[barrier],
+            );
+        };
+
+        self.end_single_time_commands(command_buffer);
+    }
+
+    pub(crate) fn copy_buffer_to_image(
+        &mut self,
+        buffer: Buffer,
+        image: Image,
+        width: u32,
+        height: u32,
+    ) {
+        let command_buffer = self.begin_single_time_commands();
+
+        let region = BufferImageCopy::builder()
+            .buffer_row_length(0)
+            .buffer_image_height(0)
+            .image_subresource(ImageSubresourceLayers {
+                aspect_mask: ImageAspectFlags::COLOR,
+                mip_level: 0,
+                base_array_layer: 0,
+                layer_count: 1,
+            })
+            .image_offset(Offset3D { x: 0, y: 0, z: 0 })
+            .image_extent(Extent3D {
+                width,
+                height,
+                depth: 1,
+            })
+            .build();
+
+        unsafe {
+            self.device.as_ref().unwrap().cmd_copy_buffer_to_image(
+                command_buffer,
+                buffer,
+                image,
+                ImageLayout::TRANSFER_DST_OPTIMAL,
+                &[region],
+            );
+        };
+
+        self.end_single_time_commands(command_buffer);
+    }
+
+    ///
     /// 因为我们将在本章中创建多个缓冲区，所以将缓冲区创建移至辅助函数是一个好主意。
     ///
     pub(crate) fn create_buffer(
@@ -1947,34 +2189,8 @@ impl HelloTriangleApplication {
     ///
     /// 缓冲区拷贝
     ///
-    pub(crate) fn copy_buffer(&self, src_buffer: Buffer, dst_buffer: Buffer, size: DeviceSize) {
-        let alloc_info = CommandBufferAllocateInfo::builder()
-            .level(CommandBufferLevel::PRIMARY)
-            .command_pool(self.command_pool)
-            .command_buffer_count(1)
-            .build();
-
-        let command_buffer = unsafe {
-            self.device
-                .as_ref()
-                .unwrap()
-                .allocate_command_buffers(&alloc_info)
-                .expect("allocate_command_buffers error")[0]
-        };
-
-        //并立即开始记录命令缓冲区
-        let begin_info = CommandBufferBeginInfo::builder()
-            // 我们将只使用一次命令缓冲区，然后等待从函数返回，直到复制操作完成执行。最好告诉我们使用的意图VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT。
-            .flags(CommandBufferUsageFlags::ONE_TIME_SUBMIT)
-            .build();
-
-        unsafe {
-            self.device
-                .as_ref()
-                .unwrap()
-                .begin_command_buffer(command_buffer, &begin_info)
-                .expect("begin_command_buffer error")
-        };
+    pub(crate) fn copy_buffer(&mut self, src_buffer: Buffer, dst_buffer: Buffer, size: DeviceSize) {
+        let command_buffer = self.begin_single_time_commands();
 
         let copy_region = BufferCopy::builder().size(size).build();
         unsafe {
@@ -1985,34 +2201,82 @@ impl HelloTriangleApplication {
                 dst_buffer,
                 &[copy_region],
             );
+        };
 
-            //该命令缓冲区仅包含复制命令，因此我们可以在此之后立即停止记录。
+        self.end_single_time_commands(command_buffer);
+    }
+
+    pub(crate) fn create_image(
+        &mut self,
+        width: u32,
+        height: u32,
+        format: Format,
+        tiling: ImageTiling,
+        usage: ImageUsageFlags,
+        properties: MemoryPropertyFlags,
+    ) -> (Image, DeviceMemory) {
+        let image_info = ImageCreateInfo::builder()
+            //在该imageType字段中指定的图像类型告诉Vulkan，图像中的纹素将要处理哪种坐标系。可以创建1D，2D和3D图像
+            //例如，一维图像可用于存储数据或渐变的数组，二维图像主要用于纹理，而三维图像可用于存储体素体积。
+            .image_type(ImageType::TYPE_2D)
+            //指定图像的尺寸，基本上是每个轴上有多少个纹​​理像素。这就是为什么depth必须1代替0的原因
+            .extent(Extent3D {
+                width,
+                height,
+                depth: 1,
+            })
+            .mip_levels(1)
+            .array_layers(1)
+            .format(format)
+            //该tiling字段可以具有两个值之一：
+            //IMAGE_TILING_LINEAR：像我们的pixels数组一样，以行优先顺序排列像素
+            //IMAGE_TILING_OPTIMAL：以实现定义的顺序排列Texel，以实现最佳访问
+            .tiling(tiling)
+            //_IMAGE_LAYOUT_UNDEFINED：GPU无法使用，并且第一个过渡将丢弃纹理像素。
+            //IMAGE_LAYOUT_PREINITIALIZED：GPU无法使用，但第一个过渡将保留纹理像素。
+            .initial_layout(ImageLayout::UNDEFINED)
+            .usage(usage)
+            .samples(SampleCountFlags::TYPE_1)
+            .sharing_mode(SharingMode::EXCLUSIVE)
+            .build();
+
+        let image = unsafe {
             self.device
                 .as_ref()
                 .unwrap()
-                .end_command_buffer(command_buffer)
-                .expect("end_command_buffer error");
+                .create_image(&image_info, None)
+                .expect("create_image error")
         };
 
-        let submit_info = SubmitInfo::builder()
-            .command_buffers(&[command_buffer])
+        let mem_requirements = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .get_image_memory_requirements(image)
+        };
+
+        let alloc_info = MemoryAllocateInfo::builder()
+            .allocation_size(mem_requirements.size)
+            .memory_type_index(self.find_memory_type(mem_requirements.memory_type_bits, properties))
             .build();
 
-        unsafe {
-            let device = self.device.as_ref().unwrap();
-
-            //与绘制命令不同，这次没有任何事件需要等待。我们只想立即在缓冲区上执行传输。还有两种可能的方法来等待此传输完成。我们可以使用栅栏等待vkWaitForFences，或者只是等待传输队列变得空闲vkQueueWaitIdle。栅栏允许您同时安排多个传输并等待所有传输完成，而不必一次执行一个。这可以为程序员提供更多优化的机会。
-            device
-                .queue_submit(self.graphics_queue, &[submit_info], Fence::null())
-                .expect("queue_submit error");
-
-            device
-                .queue_wait_idle(self.graphics_queue)
-                .expect("queue_wait_idle error");
-
-            //不要忘记清理用于传输操作的命令缓冲区。
-            device.free_command_buffers(self.command_pool, &[command_buffer]);
+        let image_memory = unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .allocate_memory(&alloc_info, None)
+                .expect("allocate_memory error")
         };
+
+        unsafe {
+            self.device
+                .as_ref()
+                .unwrap()
+                .bind_image_memory(image, image_memory, 0)
+                .expect("bind_image_memory error")
+        };
+
+        (image, image_memory)
     }
 
     ///
@@ -2482,53 +2746,32 @@ impl HelloTriangleApplication {
 
             self.cleanup_swap_chain();
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .destroy_descriptor_set_layout(self.descriptor_set_layout, None);
+            let device = self.device.as_ref().unwrap();
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .destroy_buffer(self.vertex_buffer, None);
+            device.destroy_image(self.texture_image, None);
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .free_memory(self.vertex_buffer_memory, None);
+            device.free_memory(self.textre_image_memory, None);
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .destroy_buffer(self.index_buffer, None);
+            device.destroy_descriptor_set_layout(self.descriptor_set_layout, None);
 
-            self.device
-                .as_ref()
-                .unwrap()
-                .free_memory(self.index_buffer_memory, None);
+            device.destroy_buffer(self.vertex_buffer, None);
+
+            device.free_memory(self.vertex_buffer_memory, None);
+
+            device.destroy_buffer(self.index_buffer, None);
+
+            device.free_memory(self.index_buffer_memory, None);
 
             if let Some(instance) = self.instance.as_ref() {
                 for i in 0..MAX_FRAMES_IN_FLIGHT {
-                    self.device
-                        .as_ref()
-                        .unwrap()
-                        .destroy_semaphore(self.image_available_semaphores[i], None);
+                    device.destroy_semaphore(self.image_available_semaphores[i], None);
 
-                    self.device
-                        .as_ref()
-                        .unwrap()
-                        .destroy_semaphore(self.render_finished_semaphores[i], None);
+                    device.destroy_semaphore(self.render_finished_semaphores[i], None);
 
-                    self.device
-                        .as_ref()
-                        .unwrap()
-                        .destroy_fence(self.inflight_fences[i], None);
+                    device.destroy_fence(self.inflight_fences[i], None);
                 }
 
-                self.device
-                    .as_ref()
-                    .unwrap()
-                    .destroy_command_pool(self.command_pool, None);
+                device.destroy_command_pool(self.command_pool, None);
 
                 if let Some(device) = self.device.as_ref() {
                     device.destroy_device(None);
@@ -2671,6 +2914,24 @@ impl Drop for HelloTriangleApplication {
 /// 在渲染期间绑定描述符集
 /// 该描述符布局指定资源是要由管道访问的类型，就像一个渲染通道指定将被访问的附件的类型。甲描述符组指定将绑定到描述符的实际缓冲器或图像资源，就像一个帧缓冲器指定的实际图像视图绑定到渲染过程的附件。然后将描述符集绑定到绘制命令，就像顶点缓冲区和帧缓冲区一样。
 /// 描述符的类型很多，但是在本章中，我们将使用统一缓冲区对象（UBO）。在以后的章节中，我们将介绍其他类型的描述符，但是基本过程是相同的。
+///
+/// 已使用每顶点颜色为几何图形着色，这是一种相当有限的方法。在本教程的这一部分中，我们将实现纹理映射以使几何看起来更有趣。这也将使我们在以后的章节中加载和绘制基本的3D模型。
+///
+/// 向我们的应用程序添加纹理将涉及以下步骤：
+/// 创建由设备内存支持的图像对象
+/// 用图像文件中的像素填充
+/// 创建一个图像采样器
+/// 添加组合的图像采样器描述符以从纹理中采样颜色
+///
+/// 我们之前已经使用过图像对象，但是这些对象是由交换链扩展自动创建的。这次我们必须自己创建一个。创建图像并将其填充数据类似于创建顶点缓冲区。我们将从创建临时资源并将其填充像素数据开始，然后将其复制到将用于渲染的最终图像对象。尽管可以为此创建临时映像，但Vulkan还允许您将像素从复制VkBuffer到映像，并且在某些硬件上，用于此目的的API实际上更快。我们将首先创建此缓冲区并用像素值填充它，然后将创建图像以将像素复制到该缓冲区。创建映像与创建缓冲区没有太大区别。正如我们之前所见，它涉及到查询内存需求，分配设备内存并对其进行绑定。
+/// 但是，在处理图像时，我们需要注意一些其他事项。图像的布局可能会影响像素在内存中的组织方式。由于图形硬件的工作方式，例如，仅逐行存储像素可能不会导致最佳性能。对图像执行任何操作时，必须确保它们具有最适合在该操作中使用的布局。当指定渲染通道时，我们实际上已经看到了其中一些布局：
+/// IMAGE_LAYOUT_PRESENT_SRC_KHR：最适合展示
+/// IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL：最适合作为从片段着色器写入颜色的附件
+/// IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL：最适合作为转移操作中的来源，例如 vkCmdCopyImageToBuffer
+/// IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL：最适合作为转移操作中的目的地，例如 vkCmdCopyBufferToImage
+/// IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL：最适合从着色器采样
+///
+/// 转换图像布局的最常见方法之一是管道屏障。流水线屏障主要用于同步对资源的访问，例如确保在读取图像之前已将其写入，但是它们也可以用于转换布局。
 ///
 pub fn main() {
     // 构建顶点数据
