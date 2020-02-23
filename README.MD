@@ -17,3 +17,12 @@ Run any example with the following command:
 ```shell
 $ cargo run --features=debug 1
 ```
+
+## Snapshot
+
+![rendering_and_presentation](snapshot/rendering_and_presentation.png)
+![vertex_buffer_creation](snapshot/vertex_buffer_creation.png)
+![index_buffer](snapshot/index_buffer.png)
+![descriptor_pool_and_sets](snapshot/descriptor_pool_and_sets.png)
+![combined_image_sampler](snapshot/combined_image_sampler.png)
+![combined_image_sampler1](snapshot/combined_image_sampler1.png)
