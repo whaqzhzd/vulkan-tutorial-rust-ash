@@ -26,3 +26,4 @@ $ cargo run --features=debug 1
 ![descriptor_pool_and_sets](snapshot/descriptor_pool_and_sets.png)
 ![combined_image_sampler](snapshot/combined_image_sampler.png)
 ![combined_image_sampler1](snapshot/combined_image_sampler1.png)
+![depth_buffering](snapshot/depth_buffering.png)

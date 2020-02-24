@@ -9,3 +9,6 @@ glslc ubo_shader.frag -o ubo_shader_frag.spv
 
 glslc image_sampler_shader.vert -o image_sampler_vert.spv
 glslc image_sampler_shader.frag -o image_sampler_frag.spv
+
+glslc depth_buffering_shader.vert -o depth_buffering_vert.spv
+glslc depth_buffering_shader.frag -o depth_buffering_frag.spv

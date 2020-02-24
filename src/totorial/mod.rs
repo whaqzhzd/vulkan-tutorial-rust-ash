@@ -1,6 +1,7 @@
 pub mod base_code;
 pub mod combined_image_sampler;
 pub mod command_buffers;
+pub mod depth_buffering;
 pub mod descriptor_layout_and_buffer;
 pub mod descriptor_pool_and_sets;
 pub mod fixed_functions;

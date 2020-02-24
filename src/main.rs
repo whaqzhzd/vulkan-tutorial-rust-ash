@@ -48,6 +48,7 @@ fn main() {
         "images"                       | "23" => totorial::images::main(),
         "image_view_and_sampler"       | "24" => totorial::image_view_and_sampler::main(),
         "combined_image_sampler"       | "25" => totorial::combined_image_sampler::main(),
+        "depth_buffering"              | "26" => totorial::depth_buffering::main(),
         _ => {
             todo!();
         }
