@@ -13,6 +13,7 @@ pub mod image_views;
 pub mod images;
 pub mod index_buffer;
 pub mod instance;
+pub mod loading_models;
 pub mod logical_device;
 pub mod physical_device_selection;
 pub mod render_passes;

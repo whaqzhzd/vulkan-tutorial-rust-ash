@@ -3,6 +3,7 @@ mod util;
 
 extern crate ash;
 extern crate nalgebra as nal;
+extern crate tobj;
 extern crate winit;
 
 #[macro_use]
@@ -49,6 +50,7 @@ fn main() {
         "image_view_and_sampler"       | "24" => totorial::image_view_and_sampler::main(),
         "combined_image_sampler"       | "25" => totorial::combined_image_sampler::main(),
         "depth_buffering"              | "26" => totorial::depth_buffering::main(),
+        "loading_models"               | "27" => totorial::loading_models::main(),
         _ => {
             todo!();
         }
