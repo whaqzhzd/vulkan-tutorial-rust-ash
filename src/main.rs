@@ -51,6 +51,7 @@ fn main() {
         "combined_image_sampler"       | "25" => totorial::combined_image_sampler::main(),
         "depth_buffering"              | "26" => totorial::depth_buffering::main(),
         "loading_models"               | "27" => totorial::loading_models::main(),
+        "generating_mipmaps"           | "28" => totorial::generating_mipmaps::main(),
         _ => {
             todo!();
         }

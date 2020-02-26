@@ -6,6 +6,7 @@ pub mod descriptor_layout_and_buffer;
 pub mod descriptor_pool_and_sets;
 pub mod fixed_functions;
 pub mod framebuffers;
+pub mod generating_mipmaps;
 pub mod graphics_pipeline;
 pub mod graphics_pipeline_complete;
 pub mod image_view_and_sampler;
