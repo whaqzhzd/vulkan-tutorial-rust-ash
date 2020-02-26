@@ -25,6 +25,7 @@ use image::GenericImageView;
 use nal::{Matrix, Matrix4, Perspective3, Point3, Vector2, Vector3};
 use std::{
     ffi::{c_void, CStr, CString},
+    hash::{Hash, Hasher},
     io::Cursor,
     os::raw::c_char,
     path::Path,
@@ -69,6 +70,23 @@ struct Vertex {
     pub color: Vector3<f32>,
     pub text_coord: Vector2<f32>,
 }
+
+impl Hash for Vertex {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.pos.to_string().hash(state);
+        self.color.to_string().hash(state);
+        self.text_coord.to_string().hash(state);
+    }
+}
+
+impl PartialEq for Vertex {
+    fn eq(&self, other: &Self) -> bool {
+        self.pos.eq(&other.pos)
+            && self.color.eq(&other.color)
+            && self.text_coord.eq(&other.text_coord)
+    }
+}
+impl Eq for Vertex {}
 
 impl Vertex {
     //告诉Vulkan一旦将数据格式上传到GPU内存后如何将其传递给顶点着色器
@@ -2248,6 +2266,8 @@ impl HelloTriangleApplication {
     }
 
     pub(crate) fn load_model(&mut self) {
+        use std::collections::HashMap;
+
         let cornell_box = tobj::load_obj(&Path::new(MODEL_PATH));
         assert!(cornell_box.is_ok());
         let (models, _materials) = cornell_box.unwrap();
@@ -2265,13 +2285,14 @@ impl HelloTriangleApplication {
                     color: Vector3::<f32>::new(1.0, 1.0, 1.0),
                     text_coord: Vector2::<f32>::new(
                         mesh.texcoords[v * 2],
-                        mesh.texcoords[v * 2 + 1],
+                        1.0 - mesh.texcoords[v * 2 + 1],
                     ),
                 };
 
                 self.vertices.push(vertex);
-                self.indices.push(self.indices.len() as u32);
             }
+
+            self.indices = mesh.indices.clone();
         }
     }
 
