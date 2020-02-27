@@ -526,6 +526,11 @@ struct HelloTriangleApplication {
     /// 深度纹理视图
     ///
     pub(crate) depth_image_view: ImageView,
+
+    ///
+    /// mip等级
+    ///
+    pub(crate) mip_levels: u32,
 }
 
 unsafe extern "system" fn debug_callback(
@@ -1769,6 +1774,7 @@ impl HelloTriangleApplication {
         let (depth_image, depth_image_memory) = self.create_image(
             self.swap_chain_extent.width,
             self.swap_chain_extent.height,
+            1,
             depth_format,
             ImageTiling::OPTIMAL,
             ImageUsageFlags::DEPTH_STENCIL_ATTACHMENT,
@@ -1779,7 +1785,7 @@ impl HelloTriangleApplication {
         self.depth_image_memory = depth_image_memory;
 
         self.depth_image_view =
-            self.create_image_view(self.depth_image, depth_format, ImageAspectFlags::DEPTH);
+            self.create_image_view(self.depth_image, depth_format, ImageAspectFlags::DEPTH, 1);
 
         //显式过渡深度图像
         self.transition_image_layout(
@@ -1787,6 +1793,7 @@ impl HelloTriangleApplication {
             depth_format,
             ImageLayout::UNDEFINED,
             ImageLayout::DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
+            1,
         );
     }
 
@@ -1855,10 +1862,15 @@ impl HelloTriangleApplication {
     /// 在该函数中将加载图像并将其上传到Vulkan图像对象中。
     ///
     pub(crate) fn create_texture_image(&mut self) {
+        use std::cmp::max;
         let img = image::open(TEXTURE_PATH).unwrap();
         let (tex_width, tex_height) = img.dimensions();
         let image_size =
             (std::mem::size_of::<u8>() as u32 * tex_width * tex_height * 4) as DeviceSize;
+
+        self.mip_levels = ((max(tex_width, tex_height) as f32).log2().floor()) as u32 + 1;
+
+        // let mip_levels =
 
         let (staging_buffer, staging_buffer_memory) = self.create_buffer(
             image_size,
@@ -1892,6 +1904,7 @@ impl HelloTriangleApplication {
         let (texture_image, texture_image_memory) = self.create_image(
             tex_width,
             tex_height,
+            self.mip_levels,
             Format::R8G8B8A8_SRGB,
             ImageTiling::OPTIMAL,
             ImageUsageFlags::TRANSFER_DST | ImageUsageFlags::SAMPLED,
@@ -1906,6 +1919,7 @@ impl HelloTriangleApplication {
             Format::R8G8B8A8_SRGB,
             ImageLayout::UNDEFINED,
             ImageLayout::TRANSFER_DST_OPTIMAL,
+            self.mip_levels,
         );
         self.copy_buffer_to_image(
             staging_buffer,
@@ -1913,11 +1927,21 @@ impl HelloTriangleApplication {
             tex_width as u32,
             tex_height as u32,
         );
+
         self.transition_image_layout(
             self.texture_image,
             Format::R8G8B8A8_SRGB,
             ImageLayout::TRANSFER_DST_OPTIMAL,
             ImageLayout::SHADER_READ_ONLY_OPTIMAL,
+            self.mip_levels,
+        );
+
+        self.generate_mip_maps(
+            self.texture_image,
+            Format::R8G8B8A8_SRGB,
+            tex_width as i32,
+            tex_height as i32,
+            self.mip_levels,
         );
 
         unsafe {
@@ -1937,7 +1961,156 @@ impl HelloTriangleApplication {
             self.texture_image,
             Format::R8G8B8A8_SRGB,
             ImageAspectFlags::COLOR,
+            self.mip_levels,
         );
+    }
+
+    fn generate_mip_maps(
+        &mut self,
+        image: Image,
+        format: Format,
+        tex_width: i32,
+        tex_height: i32,
+        mip_levels: u32,
+    ) {
+        let props: FormatProperties = unsafe {
+            self.instance
+                .as_ref()
+                .unwrap()
+                .get_physical_device_format_properties(self.physical_device.unwrap(), format)
+        };
+
+        if !(props
+            .optimal_tiling_features
+            .contains(FormatFeatureFlags::SAMPLED_IMAGE_FILTER_LINEAR))
+        {
+            panic!("texture image format does not support linear blitting!")
+        }
+
+        let command_buffer = self.begin_single_time_commands();
+
+        let mut barrier = ImageMemoryBarrier::builder()
+            .image(image)
+            .src_queue_family_index(QUEUE_FAMILY_IGNORED)
+            .dst_queue_family_index(QUEUE_FAMILY_IGNORED)
+            .subresource_range(ImageSubresourceRange {
+                aspect_mask: ImageAspectFlags::COLOR,
+                base_mip_level: 0,
+                level_count: 1,
+                base_array_layer: 0,
+                layer_count: 1,
+            })
+            .build();
+
+        let mut mip_width = tex_width;
+        let mut mip_height = tex_height;
+
+        for i in 1..mip_levels {
+            barrier.subresource_range.base_mip_level = i - 1;
+            barrier.old_layout = ImageLayout::TRANSFER_DST_OPTIMAL;
+            barrier.new_layout = ImageLayout::TRANSFER_SRC_OPTIMAL;
+            barrier.src_access_mask = AccessFlags::TRANSFER_WRITE;
+            barrier.dst_access_mask = AccessFlags::TRANSFER_READ;
+
+            unsafe {
+                self.device.as_ref().unwrap().cmd_pipeline_barrier(
+                    command_buffer,
+                    PipelineStageFlags::TRANSFER,
+                    PipelineStageFlags::TRANSFER,
+                    DependencyFlags::empty(),
+                    &[],
+                    &[],
+                    &[barrier],
+                )
+            };
+
+            let blit = ImageBlit::builder()
+                .src_offsets([
+                    Offset3D { x: 0, y: 0, z: 0 },
+                    Offset3D {
+                        x: mip_width,
+                        y: mip_height,
+                        z: 1,
+                    },
+                ])
+                .src_subresource(ImageSubresourceLayers {
+                    aspect_mask: ImageAspectFlags::COLOR,
+                    mip_level: i - 1,
+                    base_array_layer: 0,
+                    layer_count: 1,
+                })
+                .dst_offsets([
+                    Offset3D { x: 0, y: 0, z: 0 },
+                    Offset3D {
+                        x: if mip_width > 1 { mip_width / 2 } else { 1 },
+                        y: if mip_height > 1 { mip_height / 2 } else { 1 },
+                        z: 1,
+                    },
+                ])
+                .dst_subresource(ImageSubresourceLayers {
+                    aspect_mask: ImageAspectFlags::COLOR,
+                    mip_level: i,
+                    base_array_layer: 0,
+                    layer_count: 1,
+                })
+                .build();
+
+            unsafe {
+                self.device.as_ref().unwrap().cmd_blit_image(
+                    command_buffer,
+                    image,
+                    ImageLayout::TRANSFER_SRC_OPTIMAL,
+                    image,
+                    ImageLayout::TRANSFER_DST_OPTIMAL,
+                    &[blit],
+                    Filter::LINEAR,
+                )
+            };
+
+            barrier.old_layout = ImageLayout::TRANSFER_SRC_OPTIMAL;
+            barrier.new_layout = ImageLayout::SHADER_READ_ONLY_OPTIMAL;
+            barrier.src_access_mask = AccessFlags::TRANSFER_READ;
+            barrier.dst_access_mask = AccessFlags::SHADER_READ;
+
+            unsafe {
+                self.device.as_ref().unwrap().cmd_pipeline_barrier(
+                    command_buffer,
+                    PipelineStageFlags::TRANSFER,
+                    PipelineStageFlags::FRAGMENT_SHADER,
+                    DependencyFlags::empty(),
+                    &[],
+                    &[],
+                    &[barrier],
+                )
+            };
+
+            if mip_width > 1 {
+                mip_width /= 2
+            };
+            if mip_height > 1 {
+                mip_height /= 2
+            };
+        }
+
+        barrier.subresource_range.base_mip_level = mip_levels - 1;
+        barrier.old_layout = ImageLayout::TRANSFER_DST_OPTIMAL;
+        barrier.new_layout = ImageLayout::SHADER_READ_ONLY_OPTIMAL;
+        barrier.src_access_mask = AccessFlags::TRANSFER_WRITE;
+        barrier.dst_access_mask = AccessFlags::SHADER_READ;
+
+        unsafe {
+            self.device.as_ref().unwrap().cmd_pipeline_barrier(
+                command_buffer,
+                PipelineStageFlags::TRANSFER,
+                PipelineStageFlags::FRAGMENT_SHADER,
+                DependencyFlags::empty(),
+                &[],
+                &[],
+                &[barrier],
+            )
+        };
+
+        self.end_single_time_commands(command_buffer);
     }
 
     fn create_texture_sampler(&mut self) {
@@ -1956,7 +2129,7 @@ impl HelloTriangleApplication {
             .mipmap_mode(SamplerMipmapMode::LINEAR)
             .mip_lod_bias(0.0f32)
             .min_lod(0.0f32)
-            .max_lod(0.0f32)
+            .max_lod(self.mip_levels as f32)
             .build();
 
         //请注意，采样器未引用VkImage任何地方。采样器是一个独特的对象，提供了从纹理中提取颜色的接口。它可以应用于所需的任何图像，无论是1D，2D还是3D。这与许多较早的API不同，后者将纹理图像和过滤合并为一个状态。
@@ -1975,6 +2148,7 @@ impl HelloTriangleApplication {
         image: Image,
         format: Format,
         aspect_mask: ImageAspectFlags,
+        mip_levels: u32,
     ) -> ImageView {
         let view_info = ImageViewCreateInfo::builder()
             .image(image)
@@ -1983,7 +2157,7 @@ impl HelloTriangleApplication {
             .subresource_range(ImageSubresourceRange {
                 aspect_mask: aspect_mask,
                 base_mip_level: 0,
-                level_count: 1,
+                level_count: mip_levels,
                 base_array_layer: 0,
                 layer_count: 1,
             })
@@ -2075,6 +2249,7 @@ impl HelloTriangleApplication {
         format: Format,
         old_layout: ImageLayout,
         new_layout: ImageLayout,
+        mip_levels: u32,
     ) {
         let command_buffer = self.begin_single_time_commands();
 
@@ -2089,7 +2264,7 @@ impl HelloTriangleApplication {
             .subresource_range(ImageSubresourceRange {
                 aspect_mask: ImageAspectFlags::COLOR,
                 base_mip_level: 0,
-                level_count: 1,
+                level_count: mip_levels,
                 base_array_layer: 0,
                 layer_count: 1,
             })
@@ -2581,6 +2756,7 @@ impl HelloTriangleApplication {
         &mut self,
         width: u32,
         height: u32,
+        mip_levels: u32,
         format: Format,
         tiling: ImageTiling,
         usage: ImageUsageFlags,
@@ -2596,7 +2772,7 @@ impl HelloTriangleApplication {
                 height,
                 depth: 1,
             })
-            .mip_levels(1)
+            .mip_levels(mip_levels)
             .array_layers(1)
             .format(format)
             //该tiling字段可以具有两个值之一：
